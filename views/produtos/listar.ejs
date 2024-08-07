@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Produtos</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+  <!-- Incluindo o cabeçalho -->
+  <%- include('../layouts/header') %>
+
+  <main>
+    <h1>Lista de Produtos</h1>
+    <ul>
+      <% produtos.forEach(produto => { %>
+        <li>
+          <%= produto.nome %> - <%= produto.descricao %> - 
+          R$ <%= typeof produto.preco === 'number' && !isNaN(produto.preco) ? produto.preco.toFixed(2).replace('.', ',') : 'Preço Indisponível' %>
+          <% if (session.usuario && session.usuario.tipoUsuario === 'admin' && 'vendedor') { %>
+            <!-- Links de edição e exclusão para o administrador -->
+            <a href="/produtos/editar/<%= produto.id %>">Editar</a>
+            <a href="/produtos/excluir/<%= produto.id %>">Excluir</a>
+          <% } %>
+        </li>
+      <% }) %>
+    </ul>
+  </main>
+
+  <!-- Incluindo o rodapé -->
+  <%- include('../layouts/footer') %>
+</body>
+</html>

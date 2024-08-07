@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <title>Login</title>
+</head>
+<body>
+  <h1>Login</h1>
+  <% if (error) { %>
+    <p style="color: red;">Credenciais inválidas. Por favor, verifique seu email ou senha.</p>
+  <% } %>
+  <form action="/auth/login" method="POST">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <br>
+    <label for="senha">Senha:</label>
+    <input type="password" id="senha" name="senha" required>
+    <br>
+    <label for="tipoUsuario">Tipo de Usuário:</label>
+    <select id="tipoUsuario" name="tipoUsuario" required>
+      <option value="cliente">Cliente</option>
+      <option value="vendedor">Vendedor</option>
+    </select>
+    <br>
+    <button type="submit">Login</button>
+  </form>
+  <a href="/auth/registro">Criar Cadastro</a>
+  <a href="/produtos/listar">Explorar Produtos</a>
+</body>
+</html>

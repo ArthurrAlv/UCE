@@ -1,0 +1,24 @@
+<% include('../layouts/header') %>
+<button id="back-button">Voltar</button>
+<main>
+    <h1>Histórico de Compras</h1>
+    <ul>
+        <% if (historico && historico.length > 0) { %>
+            <% historico.forEach(compra => { %>
+                <li>
+                    <h3>Compra #<%= compra.id %></h3>
+                    <p>Data: <%= compra.data %></p>
+                    <ul>
+                        <% compra.produtos.forEach(produto => { %>
+                            <li><%= produto.nome %> - R$<%= produto.preco %></li>
+                        <% }) %>
+                    </ul>
+                </li>
+            <% }) %>
+        <% } else { %>
+            <p>Você ainda não fez compras.</p>
+        <% } %>
+    </ul>
+</main>
+<% include('../layouts/footer') %>
+<script type="module" src="/js/main.js"></script>

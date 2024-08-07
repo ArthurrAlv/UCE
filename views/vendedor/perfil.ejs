@@ -1,0 +1,12 @@
+<% include('../layouts/header') %>
+<button id="back-button">Voltar</button>
+<main>
+    <h1>Perfil do Vendedor</h1>
+    <div>
+        <h2><%= vendedor.nome %></h2>
+        <p>Email: <%= vendedor.email %></p>
+        <a href="/vendedor/editarPerfil">Editar Perfil</a>
+    </div>
+</main>
+<% include('../layouts/footer') %>
+<script type="module" src="/js/main.js"></script>

@@ -1,0 +1,25 @@
+<header>
+    <nav>
+      <ul>
+        <% if (session && session.usuario) { %>
+          <% if (session.usuario.tipoUsuario === 'cliente') { %>
+            <li><a href="/cliente/perfil">Perfil</a></li>
+            <li><a href="/cliente/carrinho">Carrinho</a></li>
+            <li><a href="/cliente/historico">Histórico</a></li>
+          <% } else if (session.usuario.tipoUsuario === 'vendedor') { %>
+            <li><a href="/vendedor/perfil">Perfil</a></li>
+            <li><a href="/vendedor/produtos">Meus Produtos</a></li>
+            <li><a href="/vendedor/editarPerfil">Editar Perfil</a></li>
+          <% } else if (session.usuario.tipoUsuario === 'admin') { %>
+            <li><a href="/admin/painel">Painel Administrativo</a></li>
+          <% } %>
+          <li><a href="/auth/logout">Sair</a></li>
+        <% } else { %>
+          <li><a href="/auth/login">Login</a></li>
+          <li><a href="/auth/registro">Registrar</a></li>
+        <% } %>
+      </ul>
+    </nav>
+  </header>
+  <main>
+  

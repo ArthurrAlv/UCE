@@ -1,0 +1,17 @@
+<%- include('../layouts/header')%>
+<main>
+    <h1>Meus Produtos</h1>
+    <a href="/vendedor/adicionarProduto">Adicionar Novo Produto</a>
+    <ul>
+        <% produtos.forEach(produto => { %>
+            <li>
+                <h3><%= produto.nome %></h3>
+                <p><%= produto.descricao %></p>
+                <p>Preço: R$<%= produto.preco %></p>
+                <a href="/vendedor/editarProduto/<%= produto.id %>">Editar</a>
+                <a href="/vendedor/confirmarExclusao/<%= produto.id %>">Excluir</a>
+            </li>
+        <% }) %>
+    </ul>
+</main>
+<%- include('../layouts/footer') %>

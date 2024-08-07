@@ -1,0 +1,22 @@
+<% include('../layouts/header') %>
+<button id="back-button">Voltar</button>
+<main>
+    <h1>Editar Produto</h1>
+    <form action="/vendedor/salvarEdicao" method="post">
+        <input type="hidden" name="id" value="<%= produto.id %>">
+        
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" value="<%= produto.nome %>">
+        
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao"><%= produto.descricao %></textarea>
+        
+        <label for="preco">Preço:</label>
+        <input type="text" id="preco" name="preco" value="<%= produto.preco %>">
+        
+        <button type="submit">Salvar Alterações</button>
+    </form>
+    <a href="/vendedor/produtos">Voltar para Produtos</a>
+</main>
+<% include('../layouts/footer') %>
+<script type="module" src="/js/main.js"></script>

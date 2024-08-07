@@ -1,0 +1,21 @@
+<% include('../layouts/header') %>
+<button id="back-button">Voltar</button>
+<main>
+    <h1>Carrinho de Compras</h1>
+    <ul>
+        <% if (carrinho && carrinho.length > 0) { %>
+            <% carrinho.forEach(produto => { %>
+                <li>
+                    <h3><%= produto.nome %></h3>
+                    <p>Preço: R$<%= produto.preco %></p>
+                    <a href="/cliente/removerProduto/<%= produto.id %>">Remover</a>
+                </li>
+            <% }) %>
+        <% } else { %>
+            <p>Seu carrinho está vazio.</p>
+        <% } %>
+    </ul>
+    <a href="/produtos/listar">Continuar Comprando</a>
+</main>
+<% include('../layouts/footer') %>
+<script type="module" src="/js/main.js"></script>
