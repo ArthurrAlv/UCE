@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 05/08/2024 às 17:00
+-- Tempo de geração: 10/08/2024 às 04:45
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -85,9 +85,6 @@ INSERT INTO `produtos` (`id`, `nome`, `descricao`, `preco`, `vendedor_id`, `esto
 (20, 'Arthur Alves Silva', 'testee', 11.11, 3, 0),
 (21, 'aa', 'x', 0.00, 3, 0),
 (22, 'Arthur', 'Xmais', 1.00, 3, 0),
-(25, 'favorito', 'melhor', 1.00, 0, 0),
-(26, '1111111111', '111111111111', 11111111.00, 0, 0),
-(27, '2222222', '222222222', 2222222.00, 0, 1),
 (28, '333333333', '33333333333', 33333333.00, 4, 3);
 
 -- --------------------------------------------------------
@@ -172,16 +169,6 @@ ALTER TABLE `produtos`
 --
 ALTER TABLE `vendedores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- Restrições para tabelas despejadas
---
-
---
--- Restrições para tabelas `produtos`
---
-ALTER TABLE `produtos`
-  ADD CONSTRAINT `produtos_ibfk_1` FOREIGN KEY (`vendedor_id`) REFERENCES `vendedores` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
