@@ -9,9 +9,10 @@
                 <p><%= produto.descricao %></p>
                 <p>Preço: R$<%= produto.preco %></p>
                 <a href="/vendedor/editarProduto/<%= produto.id %>">Editar</a>
-                <a href="/vendedor/confirmarExclusao/<%= produto.id %>">Excluir</a>
+                <a href="#" class="delete-button" data-product-id="<%= produto.id %>">Excluir</a>
             </li>
         <% }) %>
     </ul>
 </main>
 <%- include('../layouts/footer') %>
+<script type="module" src="/js/main.js"></script>

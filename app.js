@@ -17,6 +17,11 @@ app.use(session({
   cookie: { secure: false } 
 }));
 
+app.use((req, res, next) => {
+  res.locals.session = req.session; // Torna a sessão disponível em todas as views
+  next();
+});
+
 // Configuração do Express
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -43,6 +48,7 @@ app.use('/cliente', clienteRoutes);
 app.use('/vendedor', vendedorRoutes);
 app.use('/produtos', produtoRoutes);
 
+/* SE EU PRECISAR EU USO
 // Configuração do middleware para desabilitar o cache
 app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
@@ -50,6 +56,7 @@ app.use((req, res, next) => {
   res.setHeader('Expires', '0');
   next();
 });
+*/
 
 // Porta do servidor
 const PORT = process.env.PORT || 3000;
@@ -58,7 +65,7 @@ app.listen(PORT, () => {
 });
 
 // Sincronização do Sequelize (opcional, útil durante o desenvolvimento)
-sequelize.sync({ force: false }) // Use { force: true } para reiniciar tabelas a cada execução (cuidado!)
+sequelize.sync({ alter: true }) // Use { force: true } para reiniciar tabelas a cada execução (cuidado!)
   .then(() => {
     console.log('Banco de dados sincronizado');
   })

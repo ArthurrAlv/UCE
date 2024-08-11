@@ -1,6 +1,7 @@
 // js/main.js
 import { initNavigation } from './navigation.js';
 import { goBack } from './helpers.js';
+import { confirmDelete, confirmEdit } from './product.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
@@ -10,4 +11,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (backButton) {
         backButton.addEventListener('click', goBack);
     }
+
+    // Adiciona o evento de confirmação ao formulário de edição
+    const editForm = document.querySelector('.edit-form');
+    if (editForm) {
+        editForm.addEventListener('submit', confirmEdit);
+    }
+
+    // Associa o evento de clique aos botões de excluir
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const productId = button.dataset.productId;
+            confirmDelete(productId);
+        });
+    });
 });

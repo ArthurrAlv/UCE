@@ -93,6 +93,7 @@ const vendedorController = {
     }
   },
 
+  // renderiza a página de edição de produto
   renderizarEditarProduto: async (req, res) => {
     const { id } = req.params;
     try {
@@ -110,8 +111,8 @@ const vendedorController = {
 
   // Processa a edição de um produto
   efetuarEditarProduto: async (req, res) => {
-    const { id } = req.params;
-    const { nome, descricao, preco, estoque } = req.body;
+    const { id } = req.params;  // ID do produto
+    const { nome, descricao, preco, estoque } = req.body;  // Dados do formulário
     try {
       await Produto.update({
         nome: sanitize(nome),
@@ -119,10 +120,10 @@ const vendedorController = {
         preco: parseFloat(preco),
         estoque: parseInt(estoque)
       }, { where: { id, vendedor_id: req.user.id } });
-      res.redirect('/vendedor/produtos');
+      res.redirect('/vendedor/produtos');  // Redireciona para a lista de produtos
     } catch (err) {
       console.error('Erro ao atualizar produto:', err);
-      res.redirect(`/vendedor/editarProduto/${id}`);
+      res.redirect(`/vendedor/editarProduto/${id}`);  // Redireciona de volta para a página de edição em caso de erro
     }
   },
 
