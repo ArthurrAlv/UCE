@@ -27,14 +27,14 @@ export function confirmEdit(event) {
 }
 
 // Função para adicionar produto ao carrinho
-export function adicionarAoCarrinho(produtoId, quantidade) {
+export function adicionarAoCarrinho(produto_id, quantidade) {
   fetch('/carrinho/adicionar', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: new URLSearchParams({
-          produtoId: produtoId,
+          produto_id: produto_id,
           quantidade: quantidade
       })
   })

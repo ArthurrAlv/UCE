@@ -1,25 +1,38 @@
-// controllers/carrinhoController.js
 const Produto = require('../models/produto');
 const Carrinho = require('../models/carrinho');
 
-// Função auxiliar para encontrar um produto no carrinho
-function encontrarProdutoNoCarrinho(carrinho, produtoId) {
-  return carrinho.find(item => item.produto_id === parseInt(produtoId, 10));
-}
-
 const carrinhoController = {
   // Renderiza o carrinho de compras
-  visualizarCarrinho: (req, res) => {
-    const carrinho = req.session.carrinho || [];
-    res.render('cliente/carrinho', { carrinho });
+  visualizarCarrinho: async (req, res) => {
+    const cliente_id = req.session.usuario.id; // Obtém o ID do cliente da sessão
+
+    try {
+      // Buscar todos os itens do carrinho do cliente
+      const carrinhoItems = await Carrinho.findAll({
+        where: { cliente_id },
+        include: [{
+          model: Produto,  // Certifique-se de que o relacionamento entre Carrinho e Produto está definido no modelo Carrinho
+          attributes: ['nome', 'preco']  // Inclua apenas os atributos necessários
+        }]
+      });
+
+      // Formata os itens para a visualização
+      const carrinho = carrinhoItems.map(item => ({
+        id: item.produto_id,
+        nome: item.Produto.nome,
+        preco: item.Produto.preco,
+        quantidade: item.quantidade,
+      }));
+
+      res.render('cliente/carrinho', { carrinho });
+    } catch (error) {
+      console.error('Erro ao visualizar o carrinho:', error);
+      res.status(500).send('Erro interno do servidor');
+    }
   },
 
   // Adiciona um produto ao carrinho
   adicionarAoCarrinho: async (req, res) => {
-    if (!req.session.usuario || req.session.usuario.tipoUsuario !== 'cliente') {
-      return res.redirect('/auth/aviso-autenticacao');
-    }
-  
     const { produto_id, quantidade } = req.body;
     const quantidadeInt = parseInt(quantidade, 10) || 1;
     const cliente_id = req.session.usuario.id; // Obtém o ID do cliente da sessão
@@ -41,7 +54,7 @@ const carrinhoController = {
   
       if (carrinhoItem) {
         // Atualiza a quantidade se o item já estiver no carrinho
-        console.log('atualizando quantidade do produto no carrinho')
+        console.log('Atualizando quantidade do produto no carrinho');
         carrinhoItem.quantidade += quantidadeInt;
         await carrinhoItem.save();
       } else {
@@ -51,7 +64,7 @@ const carrinhoController = {
           cliente_id: cliente_id,
           quantidade: quantidadeInt,
         });
-        console.log('produto adicionado ao carrinho')
+        console.log('Produto adicionado ao carrinho');
       }
   
       res.redirect('/carrinho'); // Redireciona para a página do carrinho
@@ -62,34 +75,54 @@ const carrinhoController = {
   },
 
   // Remove um produto do carrinho
-  removerDoCarrinho: (req, res) => {
+  removerDoCarrinho: async (req, res) => {
     const { produtoId } = req.params;
-    const carrinho = req.session.carrinho || [];
+    const cliente_id = req.session.usuario.id; // Obtém o ID do cliente da sessão
 
-    req.session.carrinho = carrinho.filter(item => item.id !== parseInt(produtoId));
+    try {
+      // Remove o item do carrinho no banco de dados
+      await Carrinho.destroy({
+        where: {
+          produto_id: produtoId,
+          cliente_id: cliente_id,
+        }
+      });
 
-    res.redirect('/cliente/carrinho');
+      res.redirect('/carrinho');
+    } catch (error) {
+      console.error('Erro ao remover produto do carrinho:', error);
+      res.status(500).send('Erro interno do servidor');
+    }
   },
 
   // Atualiza a quantidade de um produto no carrinho
-  atualizarQuantidade: (req, res) => {
+  atualizarQuantidade: async (req, res) => {
     const { produtoId } = req.params;
     const novaQuantidade = parseInt(req.body.quantidade);
+    const cliente_id = req.session.usuario.id; // Obtém o ID do cliente da sessão
 
-    if (!req.session.carrinho) {
-      return res.redirect('/cliente/carrinho');
+    try {
+      // Atualiza a quantidade do produto no carrinho
+      const carrinhoItem = await Carrinho.findOne({
+        where: {
+          produto_id: produtoId,
+          cliente_id: cliente_id,
+        }
+      });
+
+      if (carrinhoItem && novaQuantidade > 0) {
+        carrinhoItem.quantidade = novaQuantidade;
+        await carrinhoItem.save();
+      } else if (carrinhoItem && novaQuantidade <= 0) {
+        // Remove o item se a quantidade for zero ou negativa
+        await carrinhoItem.destroy();
+      }
+
+      res.redirect('/carrinho');
+    } catch (error) {
+      console.error('Erro ao atualizar quantidade no carrinho:', error);
+      res.status(500).send('Erro interno do servidor');
     }
-
-    const item = encontrarProdutoNoCarrinho(req.session.carrinho, produtoId);
-
-    if (item && novaQuantidade > 0) {
-      item.quantidade = novaQuantidade;
-    } else {
-      // Se a quantidade for zero ou negativa, remova o item
-      req.session.carrinho = req.session.carrinho.filter(item => item.id !== parseInt(produtoId));
-    }
-
-    res.redirect('/cliente/carrinho');
   },
 };
 

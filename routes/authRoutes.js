@@ -17,9 +17,8 @@ router.get('/registro', redirectIfAuthenticated, authController.renderizarRegist
 router.post('/registro', redirectIfAuthenticated, authController.efetuarRegistro);
 
 // Rota para aviso de autenticação
-router.get('/aviso-autenticacao', (req, res) => {
-    res.render('auth/avisoAutenticacao');
-});
+router.get('/aviso-autenticacao', authController.renderizarAvisoAutenticacao);
+
 
 // Rota para logout
 router.get('/logout', authController.efetuarLogout);

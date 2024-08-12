@@ -33,10 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
         addToCartForm.addEventListener('submit', (event) => {
             event.preventDefault(); // Impede o envio padrão do formulário
 
-            const produtoId = addToCartForm.querySelector('input[name="produtoId"]').value;
+            const produto_id = addToCartForm.querySelector('input[name="produto_id"]').value;
             const quantidade = addToCartForm.querySelector('input[name="quantidade"]').value;
 
-            adicionarAoCarrinho(produtoId, quantidade);
+            adicionarAoCarrinho(produto_id, quantidade);
         });
     }
 });

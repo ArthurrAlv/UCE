@@ -6,6 +6,10 @@ const bcrypt = require('bcrypt');
 const sanitize = (input) => input.trim();
 
 const authController = {
+  renderizarAvisoAutenticacao: (req, res) => {
+    res.render('auth/avisoAutenticacao', { error: false });
+  },
+
   renderizarLogin: (req, res) => {
     res.render('auth/login', { error: false });
   },

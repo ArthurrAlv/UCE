@@ -10,7 +10,7 @@ const authMiddleware = (req, res, next) => {
     next();
   } else {
     console.log('Usuário não autenticado, redirecionando para login.');
-    res.redirect('/auth/login');
+    return res.redirect('/auth/aviso-autenticacao');
   }
 };
 
@@ -37,5 +37,6 @@ const redirectAuthenticatedUser = (req, res) => {
     return res.redirect('/auth/login'); // Redireciona para a página de login se o tipo de usuário for desconhecido
   }
 };
+
 
 module.exports = { authMiddleware, redirectIfAuthenticated, redirectAuthenticatedUser };

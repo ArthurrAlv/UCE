@@ -16,7 +16,7 @@
     
     <!-- Formulário para adicionar ao carrinho -->
     <form id="add-to-cart-form" action="/carrinho/adicionar" method="POST">
-      <input type="hidden" name="produtoId" value="<%= produto.id %>">
+      <input type="hidden" name="produto_id" value="<%= produto.id %>">
       <input type="number" name="quantidade" value="1" min="1">
       <button type="submit">Adicionar ao Carrinho</button>
     </form>
