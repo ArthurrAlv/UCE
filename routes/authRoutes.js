@@ -16,6 +16,11 @@ router.get('/registro', redirectIfAuthenticated, authController.renderizarRegist
 // Rota para processar o formulário de registro
 router.post('/registro', redirectIfAuthenticated, authController.efetuarRegistro);
 
+// Rota para aviso de autenticação
+router.get('/aviso-autenticacao', (req, res) => {
+    res.render('auth/avisoAutenticacao');
+});
+
 // Rota para logout
 router.get('/logout', authController.efetuarLogout);
 

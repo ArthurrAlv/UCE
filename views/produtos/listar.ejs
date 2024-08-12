@@ -15,9 +15,12 @@
     <ul>
       <% produtos.forEach(produto => { %>
         <li>
-          <%= produto.nome %> - <%= produto.descricao %> - 
-          R$ <%= typeof produto.preco === 'number' && !isNaN(produto.preco) ? produto.preco.toFixed(2).replace('.', ',') : 'Preço Indisponível' %>
-          <% if (session.usuario && session.usuario.tipoUsuario === 'admin' && 'vendedor') { %>
+          <!-- Link para a página de detalhes do produto -->
+          <a href="/produtos/produto/<%= produto.id %>">
+            <%= produto.nome %> - <%= produto.descricao %> - 
+            R$ <%= typeof produto.preco === 'number' && !isNaN(produto.preco) ? produto.preco.toFixed(2).replace('.', ',') : 'Preço Indisponível' %>
+          </a>
+          <% if (session.usuario && session.usuario.tipoUsuario === 'admin') { %>
             <!-- Links de edição e exclusão para o administrador -->
             <a href="/produtos/editar/<%= produto.id %>">Editar</a>
             <a href="/produtos/excluir/<%= produto.id %>">Excluir</a>

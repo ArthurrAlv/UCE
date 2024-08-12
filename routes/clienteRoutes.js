@@ -10,7 +10,6 @@ router.get('/perfil', authMiddleware, clienteController.renderizarPerfil);
 
 // Rota para renderizar o formulário de edição do perfil
 router.get('/editarPerfil', authMiddleware, clienteController.renderizarEditarPerfil);
-
 // Rota para processar a edição do perfil
 router.post('/editarPerfil', authMiddleware, clienteController.efetuarEditarPerfil);
 

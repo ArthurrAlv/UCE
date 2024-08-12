@@ -36,6 +36,7 @@ const authRoutes = require('./routes/authRoutes');
 const clienteRoutes = require('./routes/clienteRoutes');
 const vendedorRoutes = require('./routes/vendedorRoutes');
 const produtoRoutes = require('./routes/produtoRoutes');
+const carrinhoRoutes = require('./routes/carrinhoRoutes');
 
 // Rota raiz que redireciona para /auth/login
 app.get('/', (req, res) => {
@@ -47,6 +48,10 @@ app.use('/auth', authRoutes);
 app.use('/cliente', clienteRoutes);
 app.use('/vendedor', vendedorRoutes);
 app.use('/produtos', produtoRoutes);
+app.use('/carrinho', carrinhoRoutes);
+
+// Importar e definir associações
+require('./models/associations');
 
 /* SE EU PRECISAR EU USO
 // Configuração do middleware para desabilitar o cache
@@ -65,7 +70,7 @@ app.listen(PORT, () => {
 });
 
 // Sincronização do Sequelize (opcional, útil durante o desenvolvimento)
-sequelize.sync({ alter: true }) // Use { force: true } para reiniciar tabelas a cada execução (cuidado!)
+sequelize.sync({ force: false }) // Use { force: true } para reiniciar tabelas a cada execução (cuidado!) // Use { alter: true } para ajustar mudanças
   .then(() => {
     console.log('Banco de dados sincronizado');
   })

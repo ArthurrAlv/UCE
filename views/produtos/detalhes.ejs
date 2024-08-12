@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= produto.nome %></title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+  <%- include('../layouts/header') %>
+  <button id="back-button">Voltar</button>
+  <main>
+    <h1><%= produto.nome %></h1>
+    <p><%= produto.descricao %></p>
+    <p>Preço: R$ <%= produto.preco.toFixed(2).replace('.', ',') %></p>
+    
+    <!-- Formulário para adicionar ao carrinho -->
+    <form id="add-to-cart-form" action="/carrinho/adicionar" method="POST">
+      <input type="hidden" name="produtoId" value="<%= produto.id %>">
+      <input type="number" name="quantidade" value="1" min="1">
+      <button type="submit">Adicionar ao Carrinho</button>
+    </form>
+  </main>
+  <script type="module" src="/js/main.js"></script>
+  <%- include('../layouts/footer') %>
+</body>
+</html>

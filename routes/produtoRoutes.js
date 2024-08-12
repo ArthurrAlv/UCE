@@ -18,6 +18,9 @@ router.get('/produtos', async (req, res) => {
   }
 });
 
+// Renderizar página do produto
+router.get('/produto/:id', produtoController.renderizarProduto);
+
 /* --USAR PARA O ADMIN--
 // Adicionar produto 
 router.get('/adicionar', produtoController.criar);

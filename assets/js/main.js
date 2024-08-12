@@ -1,7 +1,7 @@
 // js/main.js
 import { initNavigation } from './navigation.js';
 import { goBack } from './helpers.js';
-import { confirmDelete, confirmEdit } from './product.js';
+import { confirmDelete, confirmEdit, adicionarAoCarrinho } from './product.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
@@ -26,4 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
             confirmDelete(productId);
         });
     });
+
+    // Associa o evento ao formulário de adicionar ao carrinho
+    const addToCartForm = document.getElementById('add-to-cart-form');
+    if (addToCartForm) {
+        addToCartForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            const produtoId = addToCartForm.querySelector('input[name="produtoId"]').value;
+            const quantidade = addToCartForm.querySelector('input[name="quantidade"]').value;
+
+            adicionarAoCarrinho(produtoId, quantidade);
+        });
+    }
 });
