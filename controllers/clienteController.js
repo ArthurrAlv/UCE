@@ -28,17 +28,6 @@ const clienteController = {
     res.redirect('/cliente/perfil');
   },
 
-  // Renderiza a página de carrinho
-  renderizarCarrinho: (req, res) => {
-    if (req.user.tipoUsuario !== 'cliente') {
-        return res.redirect('/');
-    }
-
-    const carrinho = req.session.carrinho || [];  // Pegue o carrinho da sessão ou inicialize um carrinho vazio
-
-    res.render('cliente/carrinho', { carrinho }); // Renderize a página do carrinho com os dados do carrinho
-  },
-
   // Rendediza a página de histórico de compras
   renderizarHistorico: (req, res) => {
     if (req.user.tipoUsuario !== 'cliente') {

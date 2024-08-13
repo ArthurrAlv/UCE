@@ -29,22 +29,37 @@ export function confirmEdit(event) {
 // Função para adicionar produto ao carrinho
 export function adicionarAoCarrinho(produto_id, quantidade) {
   fetch('/carrinho/adicionar', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: new URLSearchParams({
-          produto_id: produto_id,
-          quantidade: quantidade
-      })
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json' // Importante para receber a resposta como JSON
+    },
+    body: new URLSearchParams({
+      produto_id: produto_id,
+      quantidade: quantidade
+    })
   })
-  .then(response => response.text())
+  .then(response => {
+    if (response.status === 401) {
+      // Lida com o status de não autorizado
+      return response.json().then(data => {
+        alert(data.message);
+        window.location.href = data.redirectUrl; // Redireciona para a página de login
+        throw new Error('Redirecionando para login'); // Interrompe a execução
+      });
+    } else if (!response.ok) {
+      throw new Error('Erro ao adicionar produto ao carrinho.');
+    }
+    return response.text(); // Apenas continua se a resposta for bem-sucedida
+  })
   .then(result => {
-      alert('Produto adicionado ao carrinho!');
-      window.location.reload(); // Atualiza a página para refletir a mudança
+    alert('Produto adicionado ao carrinho!');
+    window.location.reload(); // Atualiza a página para refletir a mudança
   })
   .catch(error => {
+    if (error.message !== 'Redirecionando para login') {
       console.error('Erro:', error);
-      alert('Erro ao adicionar produto ao carrinho.');
+      alert('Produto não adicionado! Não há estoque!');
+    }
   });
 }

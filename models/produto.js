@@ -9,10 +9,12 @@ const Produto = sequelize.define('Produto', {
   descricao: { type: DataTypes.TEXT, allowNull: true },
   preco: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
   vendedor_id: { type: DataTypes.INTEGER, allowNull: false, references: { model: Vendedor, key: 'id' } },
-  estoque: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 }
+  estoque: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
+  createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
+  updatedAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
 }, {
   tableName: 'produtos',
-  timestamps: false
+  timestamps: true
 });
 
 module.exports = Produto;

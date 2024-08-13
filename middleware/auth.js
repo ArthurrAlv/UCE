@@ -3,16 +3,23 @@
 // Middleware de autenticação
 const authMiddleware = (req, res, next) => {
   console.log('Verificando autenticação...');
-  console.log('Sessão atual:', req.session);
   if (req.session && req.session.usuario) {
     req.user = req.session.usuario;
     console.log('Usuário autenticado:', req.user.tipoUsuario);
     next();
   } else {
     console.log('Usuário não autenticado, redirecionando para login.');
-    return res.redirect('/auth/aviso-autenticacao');
+    if (req.xhr || req.headers.accept.indexOf('json') > -1) {
+      // Solicitação AJAX
+      return res.status(401).json({ message: 'OPSS! Parece que você não está logado', redirectUrl: '/auth/aviso-autenticacao' });
+    } else {
+      // Solicitação normal
+      return res.redirect('/auth/aviso-autenticacao');
+    }
   }
 };
+
+
 
 // Middleware para redirecionamento de usuários autenticados
 const redirectIfAuthenticated = (req, res, next) => {

@@ -9,16 +9,17 @@
           <p>
             Preço: R$ 
             <%= 
-              typeof produto.preco === 'number' && !isNaN(produto.preco) 
-              ? produto.preco.toFixed(2).replace('.', ',') 
+              produto.preco && !isNaN(parseFloat(produto.preco)) 
+              ? parseFloat(produto.preco).toFixed(2).replace('.', ',') 
               : 'Preço Indisponível' 
             %>
-          </p>
-          <form action="/cliente/atualizarQuantidade/<%= produto.id %>" method="post">
+          </p>          
+          <p>Quantidade: <%= produto.quantidade %></p>
+          <form action="/carrinho/atualizar/<%= produto.id %>" method="post">
             <input type="number" name="quantidade" value="<%= produto.quantidade %>" min="1">
             <button type="submit">Atualizar</button>
           </form>
-          <a href="/cliente/removerProduto/<%= produto.id %>">Remover</a>
+          <a href="/carrinho/remover/<%= produto.id %>">Remover</a>
         </li>
       <% }) %>
     <% } else { %>

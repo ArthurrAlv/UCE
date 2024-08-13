@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10/08/2024 às 04:45
+-- Tempo de geração: 12/08/2024 às 17:05
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -42,9 +42,9 @@ CREATE TABLE `admins` (
 
 CREATE TABLE `clientes` (
   `id` int(11) NOT NULL,
-  `nome` varchar(100) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `senha` varchar(255) DEFAULT NULL
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `senha` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -52,10 +52,7 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `nome`, `email`, `senha`) VALUES
-(1, 'Cliente 1', 'cliente1@email.com', '123'),
-(2, 'Cliente 2', 'cliente2@email.com', '123'),
-(3, 'Arthur', 'a@gmail.com', '$2y$10$zhUcV2O5EmBrywWXoq6ruO01bQ9I38BrQIvFLJy2lNfYxSgcsIt8S'),
-(4, 'Arthur', '1@gmail.com', '$2b$10$FW7xLZWqzNocaTPFQcVM.u9YL4OJsltIpbCqrDsfUYBslBArZK6Ee');
+(1, 'cliente', 'cliente@gmail.com', '$2b$10$qBNYTIvO1I5Rt1eXOg5lpeftNoA..jaCaQsubIksQGxlp8NqxoXRm');
 
 -- --------------------------------------------------------
 
@@ -65,9 +62,9 @@ INSERT INTO `clientes` (`id`, `nome`, `email`, `senha`) VALUES
 
 CREATE TABLE `produtos` (
   `id` int(11) NOT NULL,
-  `nome` varchar(100) DEFAULT NULL,
+  `nome` varchar(100) NOT NULL,
   `descricao` text DEFAULT NULL,
-  `preco` decimal(10,2) DEFAULT NULL,
+  `preco` decimal(10,2) NOT NULL,
   `vendedor_id` int(11) NOT NULL,
   `estoque` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -77,15 +74,7 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`id`, `nome`, `descricao`, `preco`, `vendedor_id`, `estoque`) VALUES
-(1, 'Produto 1', 'Descrição do Produto 1', 100.00, 1, 0),
-(2, 'Produto 2', 'Descrição do Produto 2', 150.00, 1, 0),
-(3, 'Produto 3', 'Descrição do Produto 3', 80.00, 2, 0),
-(4, 'Produto 4', 'Descrição do Produto 4', 200.00, 2, 0),
-(18, 'Arthur', 'Xmais', 0.00, 3, 0),
-(20, 'Arthur Alves Silva', 'testee', 11.11, 3, 0),
-(21, 'aa', 'x', 0.00, 3, 0),
-(22, 'Arthur', 'Xmais', 1.00, 3, 0),
-(28, '333333333', '33333333333', 33333333.00, 4, 3);
+(1, 'produto 1', 'descrição do produto 1', 1.99, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -95,9 +84,9 @@ INSERT INTO `produtos` (`id`, `nome`, `descricao`, `preco`, `vendedor_id`, `esto
 
 CREATE TABLE `vendedores` (
   `id` int(11) NOT NULL,
-  `nome` varchar(100) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `senha` varchar(255) DEFAULT NULL
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `senha` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -105,10 +94,7 @@ CREATE TABLE `vendedores` (
 --
 
 INSERT INTO `vendedores` (`id`, `nome`, `email`, `senha`) VALUES
-(1, 'Vendedor 1', 'vendedor1@email.com', '123'),
-(2, 'Vendedor 2', 'vendedor2@email.com', '123'),
-(3, 'Arthur A', 'a@email.com', '$2y$10$en0uEGXHexDZRZgBEqQQhONjgL12u.3ldrIy7vgOVclKq6sstGXe.'),
-(4, 'vendedor1', '1@gmail.com', '$2b$10$j7spTy1Thg6Yok.hrbKU7.fEf6NiCnLLJataT.x.rZ55U6fXWCnXu');
+(1, 'vendedor', 'vendedor@gmail.com', '$2b$10$DoJmtxU8i.z/ZKpnc9ehHeQ7AdHwzPsYw97Tkp0n88wD71kfp5OWy');
 
 --
 -- Índices para tabelas despejadas
@@ -156,19 +142,29 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT de tabela `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `vendedores`
 --
 ALTER TABLE `vendedores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Restrições para tabelas despejadas
+--
+
+--
+-- Restrições para tabelas `produtos`
+--
+ALTER TABLE `produtos`
+  ADD CONSTRAINT `produtos_ibfk_1` FOREIGN KEY (`vendedor_id`) REFERENCES `vendedores` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

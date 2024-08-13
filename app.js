@@ -22,6 +22,9 @@ app.use((req, res, next) => {
   next();
 });
 
+// Middleware para lidar com o corpo das requisições
+app.use(express.urlencoded({ extended: true }));
+
 // Configuração do Express
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

@@ -15,11 +15,11 @@
     <p>Preço: R$ <%= produto.preco.toFixed(2).replace('.', ',') %></p>
     
     <!-- Formulário para adicionar ao carrinho -->
-    <form id="add-to-cart-form" action="/carrinho/adicionar" method="POST">
-      <input type="hidden" name="produto_id" value="<%= produto.id %>">
-      <input type="number" name="quantidade" value="1" min="1">
-      <button type="submit">Adicionar ao Carrinho</button>
-    </form>
+      <form id="add-to-cart-form" action="/carrinho/adicionar" method="POST">
+        <input type="hidden" name="produto_id" value="<%= produto.id %>">
+        <input type="number" name="quantidade" value="1" min="1">
+        <button type="submit">Adicionar ao Carrinho</button>
+      </form>
   </main>
   <script type="module" src="/js/main.js"></script>
   <%- include('../layouts/footer') %>
