@@ -20,6 +20,20 @@
             <%= produto.nome %> - <%= produto.descricao %> - 
             R$ <%= typeof produto.preco === 'number' && !isNaN(produto.preco) ? produto.preco.toFixed(2).replace('.', ',') : 'Preço Indisponível' %>
           </a>
+          <div>
+            <!-- Verificação de estoque disponível -->
+            <% if (produto.estoque > 0) { %>
+              Estoque disponível: 
+              <% if (produto.estoque > 10) { %>
+                10+ produtos
+              <% } else { %>
+                <%= produto.estoque %> 
+                <%= produto.estoque === 1 ? 'disponível' : 'disponíveis' %>
+              <% } %>
+            <% } else { %>
+              Produto indisponível
+            <% } %>
+          </div>
           <% if (session.usuario && session.usuario.tipoUsuario === 'admin') { %>
             <!-- Links de edição e exclusão para o administrador -->
             <a href="/produtos/editar/<%= produto.id %>">Editar</a>

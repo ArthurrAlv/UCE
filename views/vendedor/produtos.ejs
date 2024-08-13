@@ -8,6 +8,7 @@
                 <h3><%= produto.nome %></h3>
                 <p><%= produto.descricao %></p>
                 <p>Preço: R$<%= produto.preco %></p>
+                <p>Estoque: <%= produto.estoque %></p>
                 <a href="/vendedor/editarProduto/<%= produto.id %>">Editar</a>
                 <a href="#" class="delete-button" data-product-id="<%= produto.id %>">Excluir</a>
             </li>
