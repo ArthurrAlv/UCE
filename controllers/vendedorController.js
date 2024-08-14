@@ -1,6 +1,8 @@
 // controllers/vendedorController.js
 const Vendedor = require('../models/vendedor');
 const Produto = require('../models/produto');
+const Pedido = require('../models/pedido');
+const ItemPedido = require('../models/itemPedido'); 
 
 // Função para sanitizar entradas
 const sanitize = (input) => input.trim();
@@ -142,14 +144,14 @@ const vendedorController = {
   // listar pedidos dos clientes
   listarPedidos: async (req, res) => {
     const vendedor_id = req.session.usuario.id;
-
+  
     try {
       // Obtém os pedidos associados ao vendedor
       const pedidos = await Pedido.findAll({
-        where: { vendedor_id, status: 'pendente' }, // Você pode ter um status para pedidos pendentes
+        where: { vendedor_id, status: 'Pendente' }, // Certifique-se de usar o status correto
         include: [{ model: ItemPedido, include: [Produto] }],
       });
-
+  
       res.render('vendedor/pedidos', { pedidos });
     } catch (error) {
       console.error('Erro ao listar pedidos:', error);
