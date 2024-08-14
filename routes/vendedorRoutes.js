@@ -25,6 +25,14 @@ router.post('/editarProduto/:id', authMiddleware, vendedorController.efetuarEdit
 // Rota para processar a exclusão do produto
 router.post('/excluirProduto/:id', authMiddleware, vendedorController.efetuarExcluirProduto);
 
+// Página para o vendedor gerenciar pedidos
+router.get('/pedidos', authMiddleware, vendedorController.listarPedidos);
+
+// Aceitar um pedido
+router.post('/pedidos/aceitar/:pedidoId', authMiddleware, vendedorController.aceitarPedido);
+
+// Finalizar um pedido
+router.post('/pedidos/finalizar/:pedidoId', authMiddleware, vendedorController.finalizarPedido);    
 
 // Rota para listar produtos do vendedor
 router.get('/produtos', authMiddleware, vendedorController.listarProdutos);

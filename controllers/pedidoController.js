@@ -46,20 +46,59 @@ const pedidoController = {
   },
 
   listarPedidosCliente: async (req, res) => {
+    console.log('Acessando a página de histórico de pedidos...');
     const cliente_id = req.session.usuario.id;
 
     try {
-      const pedidos = await Pedido.findAll({
-        where: { cliente_id },
-        include: [{ model: ItemPedido, include: [Produto] }],
+        const pedidos = await Pedido.findAll({
+            where: { cliente_id },
+            include: [{ model: ItemPedido, include: [Produto] }],
+        });
+
+        res.render('cliente/historico', { pedidos });
+    } catch (error) {
+        console.error('Erro ao listar pedidos:', error);
+        res.status(500).send('Erro interno do servidor');
+    }
+  },
+
+  // processar compra direta
+  comprarProdutoDiretamente: async (req, res) => {
+    const cliente_id = req.session.usuario.id;
+    const { produto_id, quantidade } = req.body;
+
+    try {
+      const produto = await Produto.findByPk(produto_id);
+      if (!produto) {
+        return res.status(404).send('Produto não encontrado');
+      }
+
+      if (produto.estoque < quantidade) {
+        return res.status(400).send('Quantidade solicitada excede o estoque disponível');
+      }
+
+      // Criar o pedido
+      const pedido = await Pedido.create({ cliente_id, total: produto.preco * quantidade });
+
+      // Criar o item do pedido
+      await ItemPedido.create({
+        pedido_id: pedido.id,
+        produto_id,
+        quantidade,
+        preco: produto.preco,
       });
 
-      res.render('cliente/historico', { pedidos });
+      // Atualizar o estoque
+      produto.estoque -= quantidade;
+      await produto.save();
+
+      res.redirect('/pedido/historico');
     } catch (error) {
-      console.error('Erro ao listar pedidos:', error);
+      console.error('Erro ao processar a compra direta:', error);
       res.status(500).send('Erro interno do servidor');
     }
   },
+
 };
 
 module.exports = pedidoController;

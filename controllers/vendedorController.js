@@ -137,7 +137,78 @@ const vendedorController = {
       console.error('Erro ao excluir produto:', err);
       res.redirect('/vendedor/produtos');
     }
-  }
-  };
+  },
+
+  // listar pedidos dos clientes
+  listarPedidos: async (req, res) => {
+    const vendedor_id = req.session.usuario.id;
+
+    try {
+      // Obtém os pedidos associados ao vendedor
+      const pedidos = await Pedido.findAll({
+        where: { vendedor_id, status: 'pendente' }, // Você pode ter um status para pedidos pendentes
+        include: [{ model: ItemPedido, include: [Produto] }],
+      });
+
+      res.render('vendedor/pedidos', { pedidos });
+    } catch (error) {
+      console.error('Erro ao listar pedidos:', error);
+      res.status(500).send('Erro interno do servidor');
+    }
+  },
+
+  aceitarPedido: async (req, res) => {
+    const { pedidoId } = req.params;
+    const vendedor_id = req.session.usuario.id;
+
+    try {
+      const pedido = await Pedido.findByPk(pedidoId);
+      if (!pedido) {
+        return res.status(404).send('Pedido não encontrado');
+      }
+
+      // Atualiza o status do pedido para "aceito"
+      pedido.status = 'aceito';
+      pedido.vendedor_id = vendedor_id;
+      await pedido.save();
+
+      res.redirect('/vendedor/pedidos');
+    } catch (error) {
+      console.error('Erro ao aceitar pedido:', error);
+      res.status(500).send('Erro interno do servidor');
+    }
+  },
+
+  finalizarPedido: async (req, res) => {
+    const { pedidoId } = req.params;
+
+    try {
+      const pedido = await Pedido.findByPk(pedidoId, {
+        include: [{ model: ItemPedido, include: [Produto] }]
+      });
+      if (!pedido) {
+        return res.status(404).send('Pedido não encontrado');
+      }
+
+      // Atualiza o status do pedido para "finalizado"
+      pedido.status = 'finalizado';
+      await pedido.save();
+
+      // Atualiza o estoque dos produtos
+      for (const item of pedido.ItemPedidos) {
+        const produto = await Produto.findByPk(item.produto_id);
+        if (produto) {
+          produto.estoque -= item.quantidade;
+          await produto.save();
+        }
+      }
+
+      res.redirect('/vendedor/pedidos');
+    } catch (error) {
+      console.error('Erro ao finalizar pedido:', error);
+      res.status(500).send('Erro interno do servidor');
+    }
+  },
+};
 
 module.exports = vendedorController;

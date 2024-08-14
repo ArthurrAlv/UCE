@@ -1,0 +1,30 @@
+<%- include('../layouts/header') %>
+<main>
+  <h1>Pedidos</h1>
+  <ul>
+    <% if (pedidos && pedidos.length > 0) { %>
+      <% pedidos.forEach(pedido => { %>
+        <li>
+          <h3>Pedido ID: <%= pedido.id %></h3>
+          <p>Status: <%= pedido.status %></p>
+          <ul>
+            <% pedido.ItemPedidos.forEach(item => { %>
+              <li>
+                <strong><%= item.Produto.nome %></strong> - Quantidade: <%= item.quantidade %> - Preço: R$ <%= (item.preco * item.quantidade).toFixed(2).replace('.', ',') %>
+              </li>
+            <% }) %>
+          </ul>
+          <form action="/vendedor/pedidos/aceitar/<%= pedido.id %>" method="POST">
+            <button type="submit">Aceitar Pedido</button>
+          </form>
+          <form action="/vendedor/pedidos/finalizar/<%= pedido.id %>" method="POST">
+            <button type="submit">Finalizar Pedido</button>
+          </form>
+        </li>
+      <% }) %>
+    <% } else { %>
+      <p>Não há pedidos para processar.</p>
+    <% } %>
+  </ul>
+</main>
+<%- include('../layouts/footer') %>

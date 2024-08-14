@@ -77,7 +77,6 @@ const carrinhoController = {
 
       // Formata os itens para a visualização
       const carrinho = carrinhoItems.map(item => {
-        console.log('Preço:', item.Produto.preco); // Adicione este log para verificar o tipo de dado
         return {
           id: item.produto_id,
           nome: item.Produto.nome,
