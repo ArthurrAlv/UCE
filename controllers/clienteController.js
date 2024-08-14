@@ -28,13 +28,6 @@ const clienteController = {
     res.redirect('/cliente/perfil');
   },
 
-  // Rendediza a página de histórico de compras
-  renderizarHistorico: (req, res) => {
-    if (req.user.tipoUsuario !== 'cliente') {
-      return res.redirect('/');
-    }
-    res.render('cliente/historico');
-  },
 };
 
 module.exports = clienteController;

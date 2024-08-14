@@ -16,4 +16,10 @@ router.get('/remover/:produtoId', authMiddleware, carrinhoController.removerDoCa
 // Atualizar a quantidade de um produto no carrinho
 router.post('/atualizar/:produtoId', authMiddleware, carrinhoController.atualizarQuantidade);
 
+// Exibir a página de finalização da compra
+router.get('/finalizar-compra', authMiddleware, carrinhoController.exibirFinalizacao);
+
+// Finalizar a compra
+router.post('/finalizar', authMiddleware, carrinhoController.finalizarCompra);
+
 module.exports = router;

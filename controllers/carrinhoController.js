@@ -1,6 +1,8 @@
 // controllers/carrinhoController.js
 const Produto = require('../models/produto');
 const Carrinho = require('../models/carrinho');
+const Pedido = require('../models/pedido');
+const ItemPedido = require('../models/itemPedido');
 
 const carrinhoController = {
   // Adiciona um produto ao carrinho
@@ -128,50 +130,134 @@ const carrinhoController = {
   atualizarQuantidade: async (req, res) => {
     const { produtoId } = req.params;
     const novaQuantidade = parseInt(req.body.quantidade);
-    const cliente_id = req.session.usuario.id; // Obtém o ID do cliente da sessão
+    const cliente_id = req.session.usuario.id;
 
     try {
-      // Atualiza a quantidade do produto no carrinho
-      const carrinhoItem = await Carrinho.findOne({
-        where: {
-          produto_id: produtoId,
-          cliente_id: cliente_id,
+        const carrinhoItem = await Carrinho.findOne({
+            where: {
+                produto_id: produtoId,
+                cliente_id: cliente_id,
+            }
+        });
+
+        if (carrinhoItem) {
+            const produto = await Produto.findByPk(produtoId);
+            if (!produto) {
+                return res.status(404).json({ error: 'Produto não encontrado' });
+            }
+
+            const diferenca = novaQuantidade - carrinhoItem.quantidade;
+            if (produto.estoque < diferenca) {
+                return res.status(400).json({ error: 'Quantidade solicitada excede o estoque disponível' });
+            }
+
+            produto.estoque -= diferenca;
+            await produto.save();
+
+            carrinhoItem.quantidade = novaQuantidade;
+            await carrinhoItem.save();
+
+            return res.json({ success: true });
+        } else {
+            return res.status(404).json({ error: 'Item não encontrado no carrinho' });
         }
+    } catch (error) {
+        console.error('Erro ao atualizar quantidade no carrinho:', error);
+        res.status(500).json({ error: 'Erro interno do servidor' });
+    }
+  },
+
+  // Renderiza a página de finalização da compra
+  exibirFinalizacao: async (req, res) => {
+    const cliente_id = req.session.usuario.id;
+
+    try {
+      // Obter todos os itens do carrinho do cliente
+      const carrinhoItems = await Carrinho.findAll({
+        where: { cliente_id },
+        include: [{ model: Produto }]
       });
 
-      if (carrinhoItem) {
-        // Obtém o produto associado
-        const produto = await Produto.findByPk(produtoId);
-        if (!produto) {
-          return res.status(404).send('Produto não encontrado');
-        }
-
-        // Verifica se a nova quantidade está disponível em estoque
-        const diferenca = novaQuantidade - carrinhoItem.quantidade;
-        if (produto.estoque < diferenca) {
-          return res.status(400).send('Quantidade solicitada excede o estoque disponível');
-        }
-
-        // Atualiza o estoque do produto
-        produto.estoque -= diferenca;
-        await produto.save();
-
-        // Atualiza a quantidade do item no carrinho
-        if (novaQuantidade > 0) {
-          carrinhoItem.quantidade = novaQuantidade;
-          await carrinhoItem.save();
-        } else {
-          // Remove o item se a quantidade for zero ou negativa
-          await carrinhoItem.destroy();
-        }
+      if (carrinhoItems.length === 0) {
+        return res.redirect('/carrinho'); // Redireciona para o carrinho se estiver vazio
       }
 
-      res.redirect('/carrinho');
+      // Calcular o total do pedido
+      let totalPedido = 0;
+      const carrinho = carrinhoItems.map(item => {
+        totalPedido += item.Produto.preco * item.quantidade;
+        return {
+          id: item.produto_id,
+          nome: item.Produto.nome,
+          preco: item.Produto.preco,
+          quantidade: item.quantidade,
+          subtotal: item.Produto.preco * item.quantidade
+        };
+      });
+
+      res.render('cliente/finalizarCompra', { carrinho, totalPedido });
     } catch (error) {
-      console.error('Erro ao atualizar quantidade no carrinho:', error);
+      console.error('Erro ao exibir a finalização da compra:', error);
       res.status(500).send('Erro interno do servidor');
     }
   },
+
+  // Função para finalizar a compra
+  finalizarCompra: async (req, res) => {
+    const cliente_id = req.session.usuario.id;
+
+    try {
+      // Obter todos os itens do carrinho do cliente
+      const carrinhoItems = await Carrinho.findAll({
+        where: { cliente_id },
+        include: [{ model: Produto }]
+      });
+
+      if (carrinhoItems.length === 0) {
+        return res.status(400).send('Seu carrinho está vazio.');
+      }
+
+      // Criar o pedido
+      let totalPedido = 0;
+      const pedido = await Pedido.create({
+        cliente_id,
+        total: 0, // Atualizaremos o total após calcular
+      });
+
+      // Criar os itens do pedido e calcular o total
+      for (const item of carrinhoItems) {
+        const precoItem = item.Produto.preco * item.quantidade;
+
+        await ItemPedido.create({
+          pedido_id: pedido.id,
+          produto_id: item.produto_id,
+          quantidade: item.quantidade,
+          preco: item.Produto.preco,
+        });
+
+        totalPedido += precoItem;
+
+        // Atualizar o estoque do produto
+        item.Produto.estoque -= item.quantidade;
+        await item.Produto.save();
+      }
+
+      // Atualizar o total do pedido
+      pedido.total = totalPedido;
+      await pedido.save();
+
+      // Limpar o carrinho do cliente
+      await Carrinho.destroy({
+        where: { cliente_id }
+      });
+
+      res.redirect('/pedido'); // Redireciona para a página de histórico de pedidos ou uma página de sucesso
+    } catch (error) {
+      console.error('Erro ao finalizar a compra:', error);
+      res.status(500).send('Erro interno do servidor');
+    }
+  },
+
 };
 
 module.exports = carrinhoController;

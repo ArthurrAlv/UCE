@@ -13,9 +13,5 @@ router.get('/editarPerfil', authMiddleware, clienteController.renderizarEditarPe
 // Rota para processar a edição do perfil
 router.post('/editarPerfil', authMiddleware, clienteController.efetuarEditarPerfil);
 
-
-// Rota para renderizar o histórico do cliente
-router.get('/historico', authMiddleware, clienteController.renderizarHistorico);
-
 module.exports = router;
 

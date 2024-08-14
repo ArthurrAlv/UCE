@@ -1,24 +1,21 @@
 <% include('../layouts/header') %>
 <button id="back-button">Voltar</button>
 <main>
-    <h1>Histórico de Compras</h1>
-    <ul>
-        <% if (historico && historico.length > 0) { %>
-            <% historico.forEach(compra => { %>
-                <li>
-                    <h3>Compra #<%= compra.id %></h3>
-                    <p>Data: <%= compra.data %></p>
-                    <ul>
-                        <% compra.produtos.forEach(produto => { %>
-                            <li><%= produto.nome %> - R$<%= produto.preco %></li>
-                        <% }) %>
-                    </ul>
-                </li>
-            <% }) %>
-        <% } else { %>
-            <p>Você ainda não fez compras.</p>
-        <% } %>
-    </ul>
+    <h1>Histórico de Pedidos</h1>
+
+    <% if (pedidos.length > 0) { %>
+      <% pedidos.forEach(pedido => { %>
+        <h2>Pedido ID: <%= pedido.id %> - Total: R$<%= pedido.total %></h2>
+        <p>Status: <%= pedido.status %></p>
+        <ul>
+          <% pedido.ItemPedidos.forEach(item => { %>
+            <li><%= item.Produto.nome %> - Quantidade: <%= item.quantidade %> - Preço: R$<%= item.preco %></li>
+          <% }) %>
+        </ul>
+      <% }) %>
+    <% } else { %>
+      <p>Você ainda não fez nenhum pedido.</p>
+    <% } %>
 </main>
 <% include('../layouts/footer') %>
 <script type="module" src="/js/main.js"></script>

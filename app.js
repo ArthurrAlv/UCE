@@ -40,6 +40,7 @@ const clienteRoutes = require('./routes/clienteRoutes');
 const vendedorRoutes = require('./routes/vendedorRoutes');
 const produtoRoutes = require('./routes/produtoRoutes');
 const carrinhoRoutes = require('./routes/carrinhoRoutes');
+const pedidoRoutes = require('./routes/pedidoRoutes');
 
 // Rota raiz que redireciona para /auth/login
 app.get('/', (req, res) => {
@@ -52,6 +53,7 @@ app.use('/cliente', clienteRoutes);
 app.use('/vendedor', vendedorRoutes);
 app.use('/produtos', produtoRoutes);
 app.use('/carrinho', carrinhoRoutes);
+app.use('/pedido', pedidoRoutes);
 
 // Importar e definir associações
 require('./models/associations');

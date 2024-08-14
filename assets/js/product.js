@@ -63,3 +63,32 @@ export function adicionarAoCarrinho(produto_id, quantidade) {
     }
   });
 }
+
+// Função para atualizar a quantidade de um produto no carrinho
+export function atualizarQuantidade(produtoId, novaQuantidade) {
+  if (novaQuantidade < 1) {
+      return;
+  }
+
+  fetch(`/carrinho/atualizar/${produtoId}`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ quantidade: novaQuantidade })
+  })
+  .then(response => {
+      if (response.ok) {
+          document.getElementById(`quantidade-${produtoId}`).value = novaQuantidade;
+          return response.json();
+      } else {
+          return Promise.reject('Falha ao atualizar a quantidade.');
+      }
+  })
+  .then(data => {
+      console.log('Quantidade atualizada com sucesso:', data);
+  })
+  .catch(error => {
+      console.error('Erro ao atualizar a quantidade:', error);
+  });
+}

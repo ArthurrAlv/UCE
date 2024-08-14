@@ -1,4 +1,5 @@
 <% include('../layouts/header') %>
+<button id="back-button">Voltar</button>
 <main>
   <h1>Carrinho de Compras</h1>
   <ul>
@@ -14,14 +15,26 @@
               : 'Preço Indisponível' 
             %>
           </p>          
-          <p>Quantidade: <%= produto.quantidade %></p>
-          <form action="/carrinho/atualizar/<%= produto.id %>" method="post">
-            <input type="number" name="quantidade" value="<%= produto.quantidade %>" min="1">
-            <button type="submit">Atualizar</button>
-          </form>
+          <p>Quantidade:</p>
+          <div>
+            <!-- Botão de decremento -->
+            <button class="decrement" data-produto-id="<%= produto.id %>">-</button>
+            <input 
+              type="number" 
+              name="quantidade" 
+              value="<%= produto.quantidade %>" 
+              min="1" 
+              readonly 
+              id="quantidade-<%= produto.id %>"
+            >
+            <button class="increment" data-produto-id="<%= produto.id %>">+</button>            
+          </div>
           <a href="/carrinho/remover/<%= produto.id %>">Remover</a>
         </li>
       <% }) %>
+      <form action="/carrinho/finalizar-compra" method="GET">
+        <button type="submit">Continuar</button>
+      </form> 
     <% } else { %>
       <p>Seu carrinho está vazio.</p>
     <% } %>
@@ -29,3 +42,4 @@
   <a href="/produtos/listar">Continuar Comprando</a>
 </main>
 <% include('../layouts/footer') %>
+<script type="module" src="/js/main.js"></script>

@@ -1,7 +1,7 @@
 // js/main.js
 import { initNavigation } from './navigation.js';
 import { goBack } from './helpers.js';
-import { confirmDelete, confirmEdit, adicionarAoCarrinho } from './product.js';
+import { confirmDelete, confirmEdit, adicionarAoCarrinho, atualizarQuantidade } from './product.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
@@ -39,4 +39,22 @@ document.addEventListener('DOMContentLoaded', () => {
             adicionarAoCarrinho(produto_id, quantidade);
         });
     }
+
+    const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
+    const csrfToken = csrfMetaTag ? csrfMetaTag.getAttribute('content') : null;
+
+    // Seleciona todos os botões de incremento e decremento
+    document.querySelectorAll('.increment, .decrement').forEach(button => { // Corrigido seletor para especificar botões increment e decrement
+        button.addEventListener('click', (event) => {
+            const produtoId = event.target.getAttribute('data-produto-id');
+            const isIncrement = event.target.classList.contains('increment');
+            const inputQuantidade = document.getElementById(`quantidade-${produtoId}`);
+            const quantidadeAtual = parseInt(inputQuantidade.value);
+
+            const novaQuantidade = isIncrement ? quantidadeAtual + 1 : quantidadeAtual - 1;
+
+            // Chama a função de atualização de quantidade
+            atualizarQuantidade(produtoId, novaQuantidade, csrfToken);
+        });
+    });
 });

@@ -1,0 +1,24 @@
+<% include('../layouts/header') %>
+
+<h1>Finalizar Compra</h1>
+
+<% if (carrinho.length > 0) { %>
+  <ul>
+    <% carrinho.forEach(item => { %>
+      <li>
+        <%= item.nome %> - Quantidade: <%= item.quantidade %> - Preço: R$<%= item.preco.toFixed(2).replace('.', ',') %> - Subtotal: R$<%= item.subtotal.toFixed(2).replace('.', ',') %>
+      </li>
+    <% }) %>
+  </ul>
+  <p>Total: R$<%= totalPedido.toFixed(2).replace('.', ',') %></p>
+
+  <form action="/carrinho/finalizar" method="POST">
+    <button type="submit">Confirmar Compra</button>
+  </form>
+  
+  <a href="/carrinho">Cancelar</a> <!-- Link para voltar ao carrinho -->
+<% } else { %>
+  <p>Seu carrinho está vazio.</p>
+<% } %>
+
+<% include('../layouts/footer') %>
