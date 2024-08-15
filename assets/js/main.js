@@ -1,6 +1,6 @@
 import { initNavigation } from './navigation.js';
 import { goBack } from './helpers.js';
-import { confirmDelete, confirmEdit, adicionarAoCarrinho, atualizarQuantidade, atualizarTotalCarrinho } from './product.js';
+import { confirmDelete, confirmEdit, adicionarAoCarrinho, atualizarQuantidade, initDetalhesQuantidade } from './product.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
@@ -60,7 +60,4 @@ document.addEventListener('DOMContentLoaded', () => {
             atualizarQuantidade(produtoId, novaQuantidade, csrfToken);
         });
     });
-
-    // Inicializa o total do carrinho quando a página é carregada
-    atualizarTotalCarrinho();
 });

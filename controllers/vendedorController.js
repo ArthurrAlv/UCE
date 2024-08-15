@@ -3,6 +3,8 @@ const Vendedor = require('../models/vendedor');
 const Produto = require('../models/produto');
 const Pedido = require('../models/pedido');
 const ItemPedido = require('../models/itemPedido'); 
+const { Op } = require('sequelize');
+
 
 // Função para sanitizar entradas
 const sanitize = (input) => input.trim();
@@ -143,16 +145,29 @@ const vendedorController = {
 
   // listar pedidos dos clientes
   listarPedidos: async (req, res) => {
-    const vendedor_id = req.session.usuario.id;
-  
+    const vendedorId = req.session.usuario.id;
+
     try {
-      // Obtém os pedidos associados ao vendedor
+      // Obtém os pedidos que têm itens associados ao vendedor atual
       const pedidos = await Pedido.findAll({
-        where: { vendedor_id, status: 'Pendente' }, // Certifique-se de usar o status correto
-        include: [{ model: ItemPedido, include: [Produto] }],
+        include: [{
+          model: ItemPedido,
+          include: [{
+            model: Produto,
+            where: { vendedor_id: vendedorId }
+          }],
+        }],
+        where: {
+          status: {
+            [Op.in]: ['Pendente', 'aceito']
+          }
+        }
       });
-  
-      res.render('vendedor/pedidos', { pedidos });
+
+      // Filtrar pedidos que não têm itens para o vendedor atual
+      const pedidosFiltrados = pedidos.filter(pedido => pedido.ItemPedidos.length > 0);
+
+      res.render('vendedor/pedidos', { pedidos: pedidosFiltrados, vendedorId });
     } catch (error) {
       console.error('Erro ao listar pedidos:', error);
       res.status(500).send('Erro interno do servidor');
@@ -183,7 +198,7 @@ const vendedorController = {
 
   finalizarPedido: async (req, res) => {
     const { pedidoId } = req.params;
-
+  
     try {
       const pedido = await Pedido.findByPk(pedidoId, {
         include: [{ model: ItemPedido, include: [Produto] }]
@@ -191,26 +206,26 @@ const vendedorController = {
       if (!pedido) {
         return res.status(404).send('Pedido não encontrado');
       }
-
+  
       // Atualiza o status do pedido para "finalizado"
       pedido.status = 'finalizado';
       await pedido.save();
-
+  
       // Atualiza o estoque dos produtos
       for (const item of pedido.ItemPedidos) {
         const produto = await Produto.findByPk(item.produto_id);
         if (produto) {
-          produto.estoque -= item.quantidade;
+          produto.estoque = Math.max(produto.estoque - item.quantidade, 0); // Evita que o estoque fique negativo
           await produto.save();
         }
       }
-
+  
       res.redirect('/vendedor/pedidos');
     } catch (error) {
       console.error('Erro ao finalizar pedido:', error);
       res.status(500).send('Erro interno do servidor');
     }
-  },
+  },  
 };
 
 module.exports = vendedorController;

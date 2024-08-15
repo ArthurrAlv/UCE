@@ -66,41 +66,46 @@ const pedidoController = {
 },
 
   // processar compra direta
-  comprarProdutoDiretamente: async (req, res) => {
-    const cliente_id = req.session.usuario.id;
-    const { produto_id, quantidade } = req.body;
+// processar compra direta
+comprarProdutoDiretamente: async (req, res) => {
+  const cliente_id = req.session.usuario.id;
+  const { produto_id, quantidade } = req.body;
 
-    try {
-      const produto = await Produto.findByPk(produto_id);
-      if (!produto) {
-        return res.status(404).send('Produto não encontrado');
-      }
-
-      if (produto.estoque < quantidade) {
-        return res.status(400).send('Quantidade solicitada excede o estoque disponível');
-      }
-
-      // Criar o pedido
-      const pedido = await Pedido.create({ cliente_id, total: produto.preco * quantidade });
-
-      // Criar o item do pedido
-      await ItemPedido.create({
-        pedido_id: pedido.id,
-        produto_id,
-        quantidade,
-        preco: produto.preco,
-      });
-
-      // Atualizar o estoque
-      produto.estoque -= quantidade;
-      await produto.save();
-
-      res.redirect('/pedido/historico');
-    } catch (error) {
-      console.error('Erro ao processar a compra direta:', error);
-      res.status(500).send('Erro interno do servidor');
+  try {
+    const produto = await Produto.findByPk(produto_id);
+    if (!produto) {
+      return res.status(404).send('Produto não encontrado');
     }
-  },
+
+    if (produto.estoque < quantidade) {
+      return res.status(400).send('Quantidade solicitada excede o estoque disponível');
+    }
+
+    // Criar o pedido com o vendedor_id associado ao produto
+    const pedido = await Pedido.create({
+      cliente_id,
+      vendedor_id: produto.vendedor_id,  // Adicionando vendedor_id ao pedido
+      total: produto.preco * quantidade
+    });
+
+    // Criar o item do pedido
+    await ItemPedido.create({
+      pedido_id: pedido.id,
+      produto_id,
+      quantidade,
+      preco: produto.preco,
+    });
+
+    // Atualizar o estoque
+    produto.estoque -= quantidade;
+    await produto.save();
+
+    res.redirect('/pedido/historico');
+  } catch (error) {
+    console.error('Erro ao processar a compra direta:', error);
+    res.status(500).send('Erro interno do servidor');
+  }
+},
 
 };
 
