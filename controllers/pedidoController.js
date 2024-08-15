@@ -52,7 +52,10 @@ const pedidoController = {
     try {
         const pedidos = await Pedido.findAll({
             where: { cliente_id },
-            include: [{ model: ItemPedido, include: [Produto] }],
+            include: [{ 
+                model: ItemPedido, 
+                include: [{ model: Produto, attributes: ['id', 'nome', 'preco', 'vendedor_id'] }]
+            }],
         });
 
         res.render('cliente/historico', { pedidos });
@@ -60,7 +63,7 @@ const pedidoController = {
         console.error('Erro ao listar pedidos:', error);
         res.status(500).send('Erro interno do servidor');
     }
-  },
+},
 
   // processar compra direta
   comprarProdutoDiretamente: async (req, res) => {

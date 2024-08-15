@@ -14,22 +14,33 @@
     <p><%= produto.descricao %></p>
     <p>Preço: R$ <%= produto.preco.toFixed(2).replace('.', ',') %></p>
     
+    <!-- Div para a quantidade com botões de incremento e decremento -->
+    <div class="quantidade-controle">
+        <button type="button" id="decrement-detalhes">-</button>
+        <input 
+          type="number" 
+          name="quantidade" 
+          id="quantidade-detalhes" 
+          value="1" 
+          min="1"
+          readonly>
+        <button type="button" id="increment-detalhes">+</button>
+    </div>
+
     <!-- Formulário para adicionar ao carrinho -->
     <form id="add-to-cart-form" action="/carrinho/adicionar" method="POST">
-      <input type="hidden" name="produto_id" value="<%= produto.id %>">
-      <label for="quantidade">Quantidade: </label>
-      <input type="number" name="quantidade" value="1" min="1">
-      <button type="submit">Adicionar ao Carrinho</button>
+        <input type="hidden" name="produto_id" value="<%= produto.id %>">
+        <input type="hidden" name="quantidade" id="hidden-quantidade-cart" value="1">
+        <button type="submit">Adicionar ao Carrinho</button>
     </form>
 
     <!-- Formulário para comprar diretamente -->
     <form id="buy-now-form" action="/pedido/comprar" method="POST">
-      <input type="hidden" name="produto_id" value="<%= produto.id %>">
-      <label for="quantidade">Quantidade: </label>
-      <input type="number" name="quantidade" value="1" min="1">
-      <button type="submit">Comprar Agora</button>
+        <input type="hidden" name="produto_id" value="<%= produto.id %>">
+        <input type="hidden" name="quantidade" id="hidden-quantidade-buy" value="1">
+        <button type="submit">Comprar Agora</button>
     </form>
-  </main>
+</main>
   <script type="module" src="/js/main.js"></script>
   <%- include('../layouts/footer') %>
 </body>

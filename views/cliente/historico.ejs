@@ -9,7 +9,7 @@
         <p>Status: <%= pedido.status %></p>
         <ul>
           <% pedido.ItemPedidos.forEach(item => { %>
-            <li><%= item.Produto.nome %> - Quantidade: <%= item.quantidade %> - Preço: R$<%= item.preco %></li>
+            <li><%= item.Produto.nome %> (Vendedor: <%= item.Produto.vendedor_id %>) - Quantidade: <%= item.quantidade %> - Preço: R$<%= item.preco %></li>
           <% }) %>
         </ul>
       <% }) %>

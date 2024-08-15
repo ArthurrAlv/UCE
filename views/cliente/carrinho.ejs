@@ -3,8 +3,12 @@
 <main>
   <h1>Carrinho de Compras</h1>
   <ul>
-    <% if (carrinho && carrinho.length > 0) { %>
-      <% carrinho.forEach(produto => { %>
+    <% if (carrinho && carrinho.length > 0) { 
+        let total = 0;  // Inicializa o total como zero
+    %>
+      <% carrinho.forEach(produto => { 
+          total += produto.preco * produto.quantidade; // Calcula o total
+      %>
         <li>
           <h3><%= produto.nome %></h3>
           <p>
@@ -32,6 +36,11 @@
           <a href="/carrinho/remover/<%= produto.id %>">Remover</a>
         </li>
       <% }) %>
+
+      <!-- Exibe o total do carrinho -->
+      <p id="total-carrinho"><strong>Total do Carrinho: R$ <%= total.toFixed(2).replace('.', ',') %></strong></p>
+
+      <!-- Botão para continuar a compra -->
       <form action="/carrinho/finalizar-compra" method="GET">
         <button type="submit">Continuar</button>
       </form> 

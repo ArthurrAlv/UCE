@@ -6,8 +6,20 @@
   <ul>
     <% carrinho.forEach(item => { %>
       <li>
-        <%= item.nome %> - Quantidade: <%= item.quantidade %> - Preço: R$<%= item.preco.toFixed(2).replace('.', ',') %> - Subtotal: R$<%= item.subtotal.toFixed(2).replace('.', ',') %>
-      </li>
+        <%= item.nome %> - Quantidade: <%= item.quantidade %> - 
+        Preço: R$ 
+        <%= 
+          item.preco && !isNaN(parseFloat(item.preco)) 
+          ? parseFloat(item.preco).toFixed(2).replace('.', ',') 
+          : 'Preço Indisponível' 
+        %> 
+        - Subtotal: R$ 
+        <%= 
+          item.preco && !isNaN(parseFloat(item.preco)) 
+          ? (parseFloat(item.preco) * item.quantidade).toFixed(2).replace('.', ',') 
+          : 'Subtotal Indisponível' 
+        %>
+      </li>      
     <% }) %>
   </ul>
   <p>Total: R$<%= totalPedido.toFixed(2).replace('.', ',') %></p>

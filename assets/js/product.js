@@ -1,4 +1,33 @@
 // js/product.js
+
+// Função para manipular a quantidade na página de detalhes do produto
+export function initDetalhesQuantidade() {
+  const quantidadeInput = document.getElementById('quantidade-detalhes');
+  const hiddenQuantidadeCart = document.getElementById('hidden-quantidade-cart');
+  const hiddenQuantidadeBuy = document.getElementById('hidden-quantidade-buy');
+  
+  // Função para atualizar a quantidade
+  function atualizarQuantidade(delta) {
+      let novaQuantidade = parseInt(quantidadeInput.value) + delta;
+      if (novaQuantidade < 1) novaQuantidade = 1;
+      quantidadeInput.value = novaQuantidade;
+
+      // Sincronizar os valores ocultos nos formulários
+      hiddenQuantidadeCart.value = novaQuantidade;
+      hiddenQuantidadeBuy.value = novaQuantidade;
+  }
+
+  // Evento de clique para o botão de decremento
+  document.getElementById('decrement-detalhes').addEventListener('click', () => {
+      atualizarQuantidade(-1);
+  });
+
+  // Evento de clique para o botão de incremento
+  document.getElementById('increment-detalhes').addEventListener('click', () => {
+      atualizarQuantidade(1);
+  });
+}
+
 export function confirmDelete(productId) {
   if (confirm("Tem certeza que deseja excluir este produto?")) {
     var form = document.createElement('form');
@@ -87,8 +116,30 @@ export function atualizarQuantidade(produtoId, novaQuantidade) {
   })
   .then(data => {
       console.log('Quantidade atualizada com sucesso:', data);
+      atualizarTotalCarrinho();  // Atualiza o total do carrinho
   })
   .catch(error => {
       console.error('Erro ao atualizar a quantidade:', error);
   });
+}
+
+// Função para calcular e atualizar o total do carrinho
+export function atualizarTotalCarrinho() {
+  let total = 0;
+
+  // Itera sobre cada item do carrinho para somar o total
+  document.querySelectorAll('li').forEach(item => {
+      const preco = parseFloat(item.querySelector('p').innerText.replace('Preço: R$', '').replace(',', '.'));
+      const quantidade = parseInt(item.querySelector('input[name="quantidade"]').value);
+
+      if (!isNaN(preco) && !isNaN(quantidade)) {
+          total += preco * quantidade;
+      }
+  });
+
+  // Atualiza o total exibido no carrinho
+  const totalElement = document.querySelector('#total-carrinho');
+  if (totalElement) {
+      totalElement.innerText = `Total do Carrinho: R$ ${total.toFixed(2).replace('.', ',')}`;
+  }
 }

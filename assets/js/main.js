@@ -1,7 +1,6 @@
-// js/main.js
 import { initNavigation } from './navigation.js';
 import { goBack } from './helpers.js';
-import { confirmDelete, confirmEdit, adicionarAoCarrinho, atualizarQuantidade } from './product.js';
+import { confirmDelete, confirmEdit, adicionarAoCarrinho, atualizarQuantidade, atualizarTotalCarrinho } from './product.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
@@ -27,11 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Inicializa o controle de quantidade na página de detalhes, se estiver presente
+    const quantidadeDetalhes = document.getElementById('quantidade-detalhes');
+    if (quantidadeDetalhes) {
+        initDetalhesQuantidade();
+    }
+
     // Associa o evento ao formulário de adicionar ao carrinho
     const addToCartForm = document.getElementById('add-to-cart-form');
     if (addToCartForm) {
         addToCartForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Impede o envio padrão do formulário
+            event.preventDefault();
 
             const produto_id = addToCartForm.querySelector('input[name="produto_id"]').value;
             const quantidade = addToCartForm.querySelector('input[name="quantidade"]').value;
@@ -43,8 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
     const csrfToken = csrfMetaTag ? csrfMetaTag.getAttribute('content') : null;
 
-    // Seleciona todos os botões de incremento e decremento
-    document.querySelectorAll('.increment, .decrement').forEach(button => { // Corrigido seletor para especificar botões increment e decrement
+    document.querySelectorAll('.increment, .decrement').forEach(button => {
         button.addEventListener('click', (event) => {
             const produtoId = event.target.getAttribute('data-produto-id');
             const isIncrement = event.target.classList.contains('increment');
@@ -53,8 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const novaQuantidade = isIncrement ? quantidadeAtual + 1 : quantidadeAtual - 1;
 
-            // Chama a função de atualização de quantidade
             atualizarQuantidade(produtoId, novaQuantidade, csrfToken);
         });
     });
+
+    // Inicializa o total do carrinho quando a página é carregada
+    atualizarTotalCarrinho();
 });

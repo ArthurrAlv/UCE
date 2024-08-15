@@ -201,61 +201,75 @@ const carrinhoController = {
     }
   },
 
-  // Função para finalizar a compra
   finalizarCompra: async (req, res) => {
     const cliente_id = req.session.usuario.id;
 
     try {
-      // Obter todos os itens do carrinho do cliente
-      const carrinhoItems = await Carrinho.findAll({
-        where: { cliente_id },
-        include: [{ model: Produto }]
-      });
-
-      if (carrinhoItems.length === 0) {
-        return res.status(400).send('Seu carrinho está vazio.');
-      }
-
-      // Criar o pedido
-      let totalPedido = 0;
-      const pedido = await Pedido.create({
-        cliente_id,
-        total: 0, // Atualizaremos o total após calcular
-      });
-
-      // Criar os itens do pedido e calcular o total
-      for (const item of carrinhoItems) {
-        const precoItem = item.Produto.preco * item.quantidade;
-
-        await ItemPedido.create({
-          pedido_id: pedido.id,
-          produto_id: item.produto_id,
-          quantidade: item.quantidade,
-          preco: item.Produto.preco,
+        // Obter todos os itens do carrinho do cliente
+        const carrinhoItems = await Carrinho.findAll({
+            where: { cliente_id },
+            include: [{ model: Produto }]
         });
 
-        totalPedido += precoItem;
+        if (carrinhoItems.length === 0) {
+            return res.status(400).send('Seu carrinho está vazio.');
+        }
 
-        // Atualizar o estoque do produto
-        item.Produto.estoque -= item.quantidade;
-        await item.Produto.save();
-      }
+        // Agrupar os itens do carrinho por vendedor_id
+        const carrinhoPorVendedor = {};
+        carrinhoItems.forEach(item => {
+            const vendedorId = item.Produto.vendedor_id;
+            if (!carrinhoPorVendedor[vendedorId]) {
+                carrinhoPorVendedor[vendedorId] = [];
+            }
+            carrinhoPorVendedor[vendedorId].push(item);
+        });
 
-      // Atualizar o total do pedido
-      pedido.total = totalPedido;
-      await pedido.save();
+        // Criar um pedido separado para cada vendedor
+        for (const vendedorId in carrinhoPorVendedor) {
+            let totalPedido = 0;
 
-      // Limpar o carrinho do cliente
-      await Carrinho.destroy({
-        where: { cliente_id }
-      });
+            // Criar o pedido para o vendedor atual
+            const pedido = await Pedido.create({
+                cliente_id,
+                vendedor_id: vendedorId, // Associar o pedido ao vendedor correto
+                total: 0 // Atualizaremos o total após calcular
+            });
 
-      res.redirect('/pedido'); // Redireciona para a página de histórico de pedidos ou uma página de sucesso
+            // Criar os itens do pedido e calcular o total
+            for (const item of carrinhoPorVendedor[vendedorId]) {
+                const precoItem = item.Produto.preco * item.quantidade;
+
+                await ItemPedido.create({
+                    pedido_id: pedido.id,
+                    produto_id: item.produto_id,
+                    quantidade: item.quantidade,
+                    preco: item.Produto.preco,
+                });
+
+                totalPedido += precoItem;
+
+                // Atualizar o estoque do produto
+                item.Produto.estoque -= item.quantidade;
+                await item.Produto.save();
+            }
+
+            // Atualizar o total do pedido
+            pedido.total = totalPedido;
+            await pedido.save();
+        }
+
+        // Limpar o carrinho do cliente
+        await Carrinho.destroy({
+            where: { cliente_id }
+        });
+
+        res.redirect('/pedido/historico'); // Redireciona para a página de histórico de pedidos ou uma página de sucesso
     } catch (error) {
-      console.error('Erro ao finalizar a compra:', error);
-      res.status(500).send('Erro interno do servidor');
+        console.error('Erro ao finalizar a compra:', error);
+        res.status(500).send('Erro interno do servidor');
     }
-  },
+},
 
 };
 
