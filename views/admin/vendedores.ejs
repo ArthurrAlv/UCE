@@ -1,0 +1,51 @@
+<!-- views/admin/vendedores.ejs -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciar Vendedores</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+  <%- include('../layouts/header') %>
+
+  <main>
+    <h1>Vendedores</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% vendedores.forEach(vendedor => { %>
+          <tr>
+            <td><%= vendedor.id %></td>
+            <td><%= vendedor.nome %></td>
+            <td><%= vendedor.email %></td>
+            <td>
+              <a href="/admin/vendedores/editar/<%= vendedor.id %>">Editar</a>
+              <form action="/admin/vendedores/excluir/<%= vendedor.id %>" method="POST" style="display:inline;">
+                <button type="submit">Excluir</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <form action="/admin/vendedores/adicionar" method="POST">
+      <input type="text" name="nome" placeholder="Nome" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="senha" placeholder="Senha" required>
+      <button type="submit">Adicionar Vendedor</button>
+    </form>
+  </main>
+
+  <%- include('../layouts/footer') %>
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

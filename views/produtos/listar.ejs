@@ -36,8 +36,8 @@
           </div>
           <% if (session.usuario && session.usuario.tipoUsuario === 'admin') { %>
             <!-- Links de edição e exclusão para o administrador -->
-            <a href="/produtos/editar/<%= produto.id %>">Editar</a>
-            <a href="/produtos/excluir/<%= produto.id %>">Excluir</a>
+            <a href="/produtos/editar/<%= produto.id %>" class="button">Editar</a>
+            <a href="/produtos/excluir/<%= produto.id %>" class="button">Excluir</a>
           <% } %>
         </li>
       <% }) %>

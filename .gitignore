@@ -1,0 +1,8 @@
+
+### 2. **Adicionar Arquivo `.gitignore`**
+
+Certifique-se de que o arquivo CSS gerado não seja adicionado ao repositório Git, já que ele é gerado automaticamente a partir dos arquivos SCSS. Adicione o seguinte ao seu arquivo `.gitignore`:
+
+```gitignore
+# Ignorar arquivos CSS gerados
+/assets/css/styles.css

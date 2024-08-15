@@ -28,7 +28,8 @@ app.use(express.urlencoded({ extended: true }));
 // Configuração do Express
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'assets')));
+// Configurar o middleware para servir arquivos estáticos
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Configuração do EJS
 app.set('view engine', 'ejs');
@@ -41,6 +42,7 @@ const vendedorRoutes = require('./routes/vendedorRoutes');
 const produtoRoutes = require('./routes/produtoRoutes');
 const carrinhoRoutes = require('./routes/carrinhoRoutes');
 const pedidoRoutes = require('./routes/pedidoRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 // Rota raiz que redireciona para /auth/login
 app.get('/', (req, res) => {
@@ -54,6 +56,7 @@ app.use('/vendedor', vendedorRoutes);
 app.use('/produtos', produtoRoutes);
 app.use('/carrinho', carrinhoRoutes);
 app.use('/pedido', pedidoRoutes);
+app.use('/admin', adminRoutes);
 
 // Importar e definir associações
 require('./models/associations');

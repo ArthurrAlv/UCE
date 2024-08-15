@@ -1,0 +1,43 @@
+<!-- views/admin/editarProduto.ejs -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Produto</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+  <%- include('../layouts/header') %>
+
+  <main>
+    <h1>Editar Produto</h1>
+
+    <form action="/admin/produtos/editar/<%= produto.id %>" method="POST">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" value="<%= produto.nome %>" required>
+
+      <label for="descricao">Descrição:</label>
+      <textarea id="descricao" name="descricao"><%= produto.descricao %></textarea>
+
+      <label for="preco">Preço:</label>
+      <input type="number" id="preco" name="preco" step="0.01" value="<%= produto.preco %>" required>
+
+      <label for="vendedor_id">Vendedor:</label>
+      <select name="vendedor_id" required>
+        <% vendedores.forEach(vendedor => { %>
+          <option value="<%= vendedor.id %>" <%= vendedor.id === produto.vendedor_id ? 'selected' : '' %>><%= vendedor.nome %></option>
+        <% }) %>
+      </select>
+
+      <label for="estoque">Estoque:</label>
+      <input type="number" id="estoque" name="estoque" value="<%= produto.estoque %>" required>
+
+      <button type="submit">Atualizar Produto</button>
+    </form>
+  </main>
+
+  <%- include('../layouts/footer') %>
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>
