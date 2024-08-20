@@ -1,0 +1,20 @@
+// assets/css/pages/_registro.scss
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: $border-radius;
+    @include box-shadow(0, 2px, 4px, rgba(0, 0, 0, 0.1));
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+a {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+}
