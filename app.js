@@ -1,5 +1,6 @@
 // app.js
 const express = require('express');
+const flash = require('connect-flash');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -16,6 +17,15 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: false } 
 }));
+
+app.use(flash());
+
+// Middleware para passar mensagens flash para os templates
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  next();
+});
 
 app.use((req, res, next) => {
   res.locals.session = req.session; // Torna a sessão disponível em todas as views
