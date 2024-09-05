@@ -1,0 +1,343 @@
+.carrinho-page {
+    h3 {
+        font-weight: 1000;
+        margin-bottom: 30px;
+    }
+
+    .produtos-container-carrinho {
+        max-width: 800px;
+        margin: 10px auto;
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: $border-radius;
+        @include box-shadow(0, 2px, 4px, rgba(0, 0, 0, 0.1));
+        text-align: left;
+      }
+    
+    .produto-carrinho {
+        border-radius: $border-radius2;
+        border: 2px solid #b6b6b6;
+        padding: 14px 30px;
+        margin: 30px 0;
+
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+    p {
+        margin-bottom: 10px;
+        margin-top: 30px;
+    }
+
+    .remover-carrinho {
+        color: red;
+        right: 25%;
+        transform: translateY(-50%);
+        position: absolute; 
+        white-space: nowrap;
+
+    } 
+
+    .sub-container-carrinho {
+        text-align: right;
+    }
+
+    .continuar-comprando {
+        transform: translate(-50%, -50%);
+        left: 50%;
+        position: absolute; 
+        border: 1px;
+    }
+
+    .quantidade-controle {
+
+      /* Resetando o estilo padrão do input */
+      input[type="text"],
+      input[type="number"],
+      input[type="email"],
+      input[type="password"],
+      input[type="tel"] {
+        all: unset; /* Remove todos os estilos padrão do input */
+        font-size: 1.3rem; /* Define o tamanho da fonte */
+        font-family: inherit; /* Herda a fonte do elemento pai */
+        color: #000; /* Define a cor do texto para preto */
+        text-align: left; /* Alinha o texto à esquerda */
+        padding: 0; /* Remove o padding */
+        margin: 0; /* Remove a margem */
+        width: 2%; /* Define a largura do input */
+        background-color: transparent; /* Define o fundo como transparente */
+        box-sizing: border-box; /* Inclui o padding e a borda dentro da largura total */
+      }
+
+      /* Remove o estilo das bordas e fundo ao focar */
+      input[type="text"]:focus,
+      input[type="number"]:focus,
+      input[type="email"]:focus,
+      input[type="password"]:focus,
+      input[type="tel"]:focus {
+        outline: none; /* Remove o contorno de foco */
+        border: none; /* Remove a borda */
+        background-color: transparent; /* Define o fundo como transparente */
+      }
+
+      /* Estilo adicional para input de números */
+      input[type="number"] {
+        appearance: textfield; /* Remove os botões de incremento/decremento padrão */
+      }
+
+      /* Remove as setas de incremento/decremento em alguns navegadores */
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type="number"]::-moz-appearance {
+        appearance: none; /* Remove os botões de incremento/decremento em navegadores Firefox */
+      }
+
+      /* Remove qualquer padding interno do input de número */
+      input[type="number"] {
+        padding-right: 0; /* Remove qualquer padding à direita */
+      }
+
+          }
+          button {
+            background-color: $primary-color;
+            color: #fff;
+            border: none;
+            padding: 3px 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 0 5px;
+          }
+
+      }
+
+
+/* styles.scss */
+
+/* Estilos gerais para a página de edição de perfil */
+.editar-perfil {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+  
+    header {
+      background: #333;
+      color: #fff;
+      padding: 1rem 0;
+      text-align: center;
+  
+      a {
+        color: #fff;
+        text-decoration: none;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  
+    main {
+      max-width: 600px;
+      max-height: 350px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+      h1 {
+        margin-bottom: 1rem;
+        font-size: 2rem;
+        color: #333;
+      }
+  
+      .edit-form {
+        display: flex;
+        flex-direction: column;
+        margin: 10px 40px;
+  
+        label {
+          margin-bottom: 0.5rem;
+          font-weight: bold;
+        }
+  
+        input[type="text"],
+        input[type="email"] {
+          padding: 0.5rem;
+          margin-bottom: 1rem;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+        }
+      }
+  
+      button {
+        margin: 10px 0;
+      }
+
+      a {
+        color: #007bff;
+        text-decoration: none;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+}
+
+/* styles.scss */
+
+/* Estilos gerais para a página de perfil */
+.perfil {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+  
+    header {
+      background: #333;
+      color: #fff;
+      padding: 1rem 0;
+      text-align: center;
+  
+      a {
+        color: #fff;
+        text-decoration: none;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px 40px;
+  
+      h1 {
+        margin-bottom: 1rem;
+        font-size: 2rem;
+        color: #333;
+      }
+  
+      div {
+        h2 {
+          margin-bottom: 0.5rem;
+          font-size: 1.5rem;
+          color: #333;
+        }
+  
+        p {
+          margin-bottom: 1rem;
+          font-size: 1rem;
+          color: #666;
+        }
+  
+        a {
+          color: #007bff;
+          text-decoration: none;
+  
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+  
+
+  /* styles.scss */
+
+/* Estilos gerais para a página de histórico de pedidos */
+.historico-pedidos {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+  
+    p {
+        margin-bottom: 20px;
+    }
+
+    header {
+      background: #333;
+      color: #fff;
+      padding: 1rem 0;
+      text-align: center;
+  
+      a {
+        color: #fff;
+        text-decoration: none;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+      h1 {
+        margin-bottom: 1rem;
+        font-size: 2rem;
+        color: #333;
+      }
+  
+      h2 {
+        margin: 1rem 0;
+        font-size: 1.5rem;
+        color: #333;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 0.5rem;
+      }
+  
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin-bottom: 50px;
+        margin-top: -10px;
+
+        li {
+          background: #f9f9f9;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          margin-bottom: 0.5rem;
+          padding: 0.5rem;
+        }
+      }
+  
+      p {
+        color: #666;
+        font-size: 1rem;
+      }
+    }
+  }
+  
+    

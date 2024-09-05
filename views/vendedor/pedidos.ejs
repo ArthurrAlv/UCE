@@ -1,31 +1,43 @@
-<%- include('../layouts/header') %>
-<main>
-  <h1>Pedidos</h1>
-  <ul>
-    <% if (pedidos && pedidos.length > 0) { %>
-      <% pedidos.forEach(pedido => { %>
-        <li>
-          <h3>Pedido ID: <%= pedido.id %></h3>
-          <p>Status: <%= pedido.status %></p>
-          <ul>
-            <% pedido.ItemPedidos.forEach(item => { %>
-              <li>
-                <strong><%= item.Produto.nome %></strong> - Quantidade: <%= item.quantidade %> - Preço: R$ <%= (item.preco * item.quantidade).toFixed(2).replace('.', ',') %>
-              </li>
-            <% }) %>
-          </ul>
-          <form action="/vendedor/pedidos/aceitar/<%= pedido.id %>" method="POST">
-            <button type="submit">Aceitar Pedido</button>
-          </form>
-          <form action="/vendedor/pedidos/finalizar/<%= pedido.id %>" method="POST">
-            <button type="submit">Finalizar Pedido</button>
-          </form>
-        </li>
-      <% }) %>
-    <% } else { %>
-      <p>Não há pedidos para processar.</p>
-    <% } %>
-  </ul>
-</main>
-<%- include('../layouts/footer') %>
-<script type="module" src="/assets/js/main.js"></script>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedidos</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body class="pedidos-page"> <!-- Adicionando a classe pedidos-page -->
+  <%- include('../layouts/header') %>
+  <button id="back-button" data-back-url="/vendedor/produtos">Voltar</button>
+  <main>
+    <h1>Pedidos</h1>
+    <ul>
+      <% if (pedidos && pedidos.length > 0) { %>
+        <% pedidos.forEach(pedido => { %>
+          <li class="pedido-item">
+            <h3>Pedido ID: <%= pedido.id %></h3>
+            <p>Status: <%= pedido.status %></p>
+            <ul class="itens-pedido">
+              <% pedido.ItemPedidos.forEach(item => { %>
+                <li>
+                  <strong><%= item.Produto.nome %></strong> - Quantidade: <%= item.quantidade %> - Preço: R$ <%= (item.preco * item.quantidade).toFixed(2).replace('.', ',') %>
+                </li>
+              <% }) %>
+            </ul>
+            <form action="/vendedor/pedidos/aceitar/<%= pedido.id %>" method="POST">
+              <button type="submit">Aceitar Pedido</button>
+            </form>
+            <form action="/vendedor/pedidos/finalizar/<%= pedido.id %>" method="POST">
+              <button type="submit">Finalizar Pedido</button>
+            </form>
+          </li>
+        <% }) %>
+      <% } else { %>
+        <p>Não há pedidos para processar.</p>
+      <% } %>
+    </ul>
+  </main>
+  <%- include('../layouts/footer') %>
+  <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>

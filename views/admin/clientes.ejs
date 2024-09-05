@@ -1,4 +1,3 @@
-<!-- views/admin/clientes.ejs -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,7 +6,7 @@
   <title>Gerenciar Clientes</title>
   <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
-<body>
+<body class="gerenciar-clientes">
   <%- include('../layouts/header') %>
 
   <main>
@@ -37,7 +36,7 @@
         <% }) %>
       </tbody>
     </table>
-    <form action="/admin/clientes/adicionar" method="POST">
+    <form action="/admin/clientes/adicionar" method="POST" class="adicionar-cliente-form">
       <input type="text" name="nome" placeholder="Nome" required>
       <input type="email" name="email" placeholder="Email" required>
       <input type="password" name="senha" placeholder="Senha" required>

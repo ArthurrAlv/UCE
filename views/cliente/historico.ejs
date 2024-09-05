@@ -1,21 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Histórico de Pedidos</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
 <% include('../layouts/header') %>
-<button id="back-button" data-back-url="/produtos/listar">Voltar</button>
-<main>
-    <h1>Histórico de Pedidos</h1>
+<body class="historico-pedidos"> <!-- Adicionando a classe historico-pedidos -->
+  <button id="back-button" data-back-url="/produtos/listar">Voltar</button>
+  <main>
+      <h1>Histórico de Pedidos</h1>
 
-    <% if (pedidos.length > 0) { %>
-      <% pedidos.forEach(pedido => { %>
-        <h2>Pedido ID: <%= pedido.id %> - Total: R$<%= pedido.total %></h2>
-        <p>Status: <%= pedido.status %></p>
-        <ul>
-          <% pedido.ItemPedidos.forEach(item => { %>
-            <li><%= item.Produto.nome %> (Vendedor: <%= item.Produto.vendedor_id %>) - Quantidade: <%= item.quantidade %> - Preço: R$<%= item.preco %></li>
-          <% }) %>
-        </ul>
-      <% }) %>
-    <% } else { %>
-      <p>Você ainda não fez nenhum pedido.</p>
-    <% } %>
-</main>
-<% include('../layouts/footer') %>
-<script type="module" src="/assets/js/main.js"></script>
+      <% if (pedidos.length > 0) { %>
+        <% pedidos.forEach(pedido => { %>
+          <h2>Pedido ID: <%= pedido.id %> - Total: R$<%= pedido.total %></h2>
+          <p>Status: <%= pedido.status %></p>
+          <ul>
+            <% pedido.ItemPedidos.forEach(item => { %>
+              <li><%= item.Produto.nome %> (Vendedor: <%= item.Produto.vendedor_id %>) - Quantidade: <%= item.quantidade %> - Preço: R$<%= item.preco %></li>
+            <% }) %>
+          </ul>
+        <% }) %>
+      <% } else { %>
+        <p>Você ainda não fez nenhum pedido.</p>
+      <% } %>
+  </main>
+  <% include('../layouts/footer') %>
+  <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>

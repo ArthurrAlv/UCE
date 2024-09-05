@@ -26,7 +26,7 @@ const authController = {
     const { email, senha, tipoUsuario } = req.body;
     const sanitizedEmail = sanitize(email);
     const sanitizedSenha = sanitize(senha);
-
+  
     try {
       let usuario = null;
       if (tipoUsuario === 'cliente') {
@@ -36,23 +36,28 @@ const authController = {
       } else {
         return res.status(400).send('Tipo de usuário inválido.');
       }
-
+  
       if (usuario && usuario.verificado && bcrypt.compareSync(sanitizedSenha, usuario.senha)) {
         req.session.usuario = { id: usuario.id, tipoUsuario };
+        // Limpar mensagem de erro, se houver
+        req.flash('error', '');
         if (tipoUsuario === 'cliente') {
           return res.redirect('/produtos/listar');
         } else if (tipoUsuario === 'vendedor') {
           return res.redirect('/vendedor/produtos');
         }
       } else {
-        return res.render('auth/login', { 
-          error: true, 
-          mensagem: usuario && !usuario.verificado ? 'Por favor, verifique seu e-mail antes de fazer login.' : 'Credenciais inválidas.' 
-        });
+        // Definir a mensagem de erro e renderizar o login
+        const mensagem = usuario && !usuario.verificado
+          ? 'Por favor, verifique seu e-mail antes de fazer login.'
+          : 'Credenciais inválidas.';
+        req.flash('error', mensagem);
+        return res.redirect('/auth/login');
       }
     } catch (err) {
       console.error('Erro ao consultar o banco de dados:', err);
-      return res.render('auth/login', { error: true });
+      req.flash('error', 'Ocorreu um erro ao processar sua solicitação.');
+      return res.redirect('/auth/login');
     }
   },
 
@@ -151,27 +156,32 @@ const authController = {
 
   solicitarRecuperacaoSenha: async (req, res) => {
     const { email, tipoUsuario } = req.body;
-    const sanitizedEmail = sanitize(email);
-
+    const sanitizedEmail = sanitize(email);  // Sanitizar o e-mail
+  
+    console.log('Email recebido:', sanitizedEmail);
+    console.log('Tipo de usuário recebido:', tipoUsuario);
+  
     try {
       let usuario = null;
       if (tipoUsuario === 'cliente') {
         usuario = await Cliente.findOne({ where: { email: sanitizedEmail } });
       } else if (tipoUsuario === 'vendedor') {
         usuario = await Vendedor.findOne({ where: { email: sanitizedEmail } });
+      } else {
+        return res.status(400).send('Tipo de usuário inválido.');
       }
-
+  
       if (!usuario) {
-        return res.status(404).send('Usuário não encontrado');
+        return res.status(404).send('Usuário não encontrado.');
       }
-
+  
       const token = crypto.randomBytes(20).toString('hex');
       const expiration = Date.now() + 3600000; // 1 hora
-
+  
       usuario.passwordResetToken = token;
       usuario.passwordResetExpires = expiration;
       await usuario.save();
-
+  
       const mailOptions = {
         to: sanitizedEmail,
         from: process.env.EMAIL_USER,
@@ -180,15 +190,15 @@ const authController = {
               `http://${req.headers.host}/auth/redefinir-senha/${token}\n\n` +
               `Se você não solicitou isso, ignore este e-mail.`
       };
-
+  
       await transporter.sendMail(mailOptions);
-
+  
       res.send('Um e-mail foi enviado para ' + sanitizedEmail + ' com mais instruções.');
     } catch (err) {
       console.error('Erro ao enviar e-mail de recuperação:', err);
       res.status(500).send('Erro ao enviar e-mail.');
     }
-  },
+  },  
 
   redefinirSenha: async (req, res) => {
     const { token } = req.params;
@@ -217,7 +227,11 @@ const authController = {
       usuario.passwordResetExpires = null;
       await usuario.save();
 
-      res.send('Senha redefinida com sucesso!');
+    // Definir uma mensagem flash de sucesso
+    req.flash('success', 'Senha redefinida com sucesso!');
+
+    // Redirecionar para a página de login
+    res.redirect('/auth/login');
     } catch (err) {
       console.error('Erro ao redefinir senha:', err);
       res.status(500).send('Erro ao redefinir senha.');

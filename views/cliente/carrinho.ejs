@@ -1,54 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrinho</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body class="carrinho-page">
 <% include('../layouts/header') %>
 <button id="back-button">Voltar</button>
 <main>
-  <h1>Carrinho de Compras</h1>
-  <ul>
-    <% if (carrinho && carrinho.length > 0) { 
-        let total = 0;  // Inicializa o total como zero
-    %>
-      <% carrinho.forEach(produto => { 
-          total += produto.preco * produto.quantidade; // Calcula o total
+  <div class="produtos-container-carrinho">
+    <h1>Carrinho de Compras</h1>
+    <ul>
+      <% if (carrinho && carrinho.length > 0) { 
+          let total = 0;  // Inicializa o total como zero
       %>
-        <li>
-          <h3><%= produto.nome %></h3>
-          <p>
-            Preço: R$ 
-            <%= 
-              produto.preco && !isNaN(parseFloat(produto.preco)) 
-              ? parseFloat(produto.preco).toFixed(2).replace('.', ',') 
-              : 'Preço Indisponível' 
-            %>
-          </p>          
-          <p>Quantidade:</p>
-          <div>
-            <!-- Botão de decremento -->
-            <button class="decrement" data-produto-id="<%= produto.id %>">-</button>
-            <input 
-              type="number" 
-              name="quantidade" 
-              value="<%= produto.quantidade %>" 
-              min="1" 
-              readonly 
-              id="quantidade-<%= produto.id %>"
-            >
-            <button class="increment" data-produto-id="<%= produto.id %>">+</button>            
-          </div>
-          <a href="/carrinho/remover/<%= produto.id %>">Remover</a>
-        </li>
-      <% }) %>
+        <% carrinho.forEach(produto => { 
+            total += produto.preco * produto.quantidade; // Calcula o total
+        %>
+          <li>
+            <div class="produto-carrinho">
+              <h3><%= produto.nome %></h3>
+              <p>
+                Preço: R$ 
+                <%= 
+                  produto.preco && !isNaN(parseFloat(produto.preco)) 
+                  ? parseFloat(produto.preco).toFixed(2).replace('.', ',') 
+                  : 'Preço Indisponível' 
+                %>
+              </p>          
+              <div class="quantidade-carrinho">
+                <p>Quantidade:</p>
+                <div class="quantidade-controle">
+                  <!-- Botão de decremento -->
+                  <button class="decrement" data-produto-id="<%= produto.id %>">-</button>
+                  <input 
+                    type="number" 
+                    name="quantidade" 
+                    value="<%= produto.quantidade %>" 
+                    min="1" 
+                    readonly 
+                    id="quantidade-<%= produto.id %>"
+                  >
+                  <button class="increment" data-produto-id="<%= produto.id %>">+</button>            
+                </div>
+              </div>
+              <a class="remover-carrinho" href="/carrinho/remover/<%= produto.id %>">Remover</a>
+            </div>
+          </li>
+        <% }) %>
 
-      <!-- Exibe o total do carrinho -->
-      <p id="total-carrinho"><strong>Total do Carrinho: R$ <%= total.toFixed(2).replace('.', ',') %></strong></p>
+        <div class="sub-container-carrinho">
+          <!-- Exibe o total do carrinho -->
+          <p id="total-carrinho"><strong>Total do Carrinho: R$ <%= total.toFixed(2).replace('.', ',') %></strong></p>
 
-      <!-- Botão para continuar a compra -->
-      <form action="/carrinho/finalizar-compra" method="GET">
-        <button type="submit">Continuar</button>
-      </form> 
-    <% } else { %>
-      <p>Seu carrinho está vazio.</p>
-    <% } %>
-  </ul>
-  <a href="/produtos/listar">Continuar Comprando</a>
+          <!-- Botão para continuar a compra -->
+          <form action="/carrinho/finalizar-compra" method="GET">
+            <button type="submit">Continuar</button>
+          </form>
+        </div>
+      <% } else { %>
+        <p>Seu carrinho está vazio.</p>
+      <% } %>
+    </ul>
+    <a class="continuar-comprando" href="/produtos/listar">Continuar Comprando</a>
+  </div>
 </main>
 <% include('../layouts/footer') %>
 <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,9 +1,27 @@
-body {
-  font-family: "Arial", sans-serif;
-  color: #333;
-  background-color: #f9f9f9;
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+html, body {
+  height: 100%;
   margin: 0;
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+main {
+  flex: 1; /* Faz com que o main expanda para ocupar o espaço restante */
+}
+
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  font-weight: 700;
 }
 
 a {
@@ -28,6 +46,27 @@ button:hover {
   background-color: #217dbb;
 }
 
+#back-button {
+  background-color: transparent;
+  border: none;
+  color: #3498db;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: underline;
+  text-align: left;
+  display: inline-block;
+}
+
+textarea {
+  resize: none;
+}
+
+#back-button:hover {
+  text-decoration: none;
+  color: #5faee3;
+}
+
 input, select {
   padding: 10px;
   border: 1px solid gray;
@@ -35,26 +74,56 @@ input, select {
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 20px;
+  font-family: "Roboto", sans-serif;
 }
 
-header {
+.header-custom {
   background-color: #3498db;
   padding: 16px;
   color: #fff;
+  display: flex;
+  justify-content: space-between; /* Distribui os itens igualmente */
+  align-items: center; /* Alinha os itens verticalmente */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-header nav ul {
+.header-custom nav {
+  display: flex;
+  align-items: center; /* Alinha os itens do menu verticalmente */
+}
+.header-custom .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: auto; /* Empurra os itens seguintes para a direita */
+  color: #fff;
+}
+.header-custom ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
+  display: flex; /* Alinha os itens horizontalmente */
 }
-header nav ul li {
-  display: inline;
-  margin-right: 20px;
+.header-custom ul li {
+  margin-right: 20px; /* Espaço entre os itens */
 }
-header nav ul li a {
+.header-custom ul li a {
   color: #fff;
+  text-decoration: none;
   font-weight: bold;
 }
-header nav ul li a:hover {
+.header-custom ul li a:hover {
+  color: white;
+}
+.header-custom .auth-links {
+  display: flex;
+  align-items: center;
+}
+.header-custom .auth-links a {
+  margin-left: 20px; /* Espaço entre os links de autenticação */
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.header-custom .auth-links a:hover {
   color: white;
 }
 
@@ -71,44 +140,156 @@ footer p {
 
 .form-container {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 70px auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-container form {
+  display: block;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.form-container form h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.form-container form label {
+  margin-top: 10px;
+}
+.form-container form input, .form-container form select, .form-container form button {
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  width: 100%;
+}
+.form-container form button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  width: 40%;
+}
+.form-container form button:hover {
+  background-color: #0056b3;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+.form-actions button {
+  margin-right: 10px;
+  width: 54%;
+}
+.form-actions .link-cadastro {
+  text-decoration: none;
+  color: #007bff;
+  width: 41%;
+}
+.form-actions .link-cadastro:hover {
+  text-decoration: underline;
+}
+
+.links-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+.links-container a {
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+.links-container a:hover {
+  text-decoration: underline;
+}
+.links-container .btn-explorar {
+  background-color: green;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  display: inline-block;
+  text-align: center;
+}
+.links-container .btn-explorar:hover {
+  background-color: darkgreen;
+}
+
+.error-message, .success-message {
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .error-message {
   color: red;
-  margin-bottom: 16px;
 }
 
 .success-message {
   color: green;
-  font-weight: bold;
-  margin-bottom: 15px;
 }
 
-form {
+.registro-form {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 70px auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-  margin-bottom: 20px;
-}
-
-a {
+.registro-form form {
   display: block;
-  margin-top: 20px;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.registro-form form .registro-form h1 {
+  margin-bottom: 20px;
   text-align: center;
 }
+.registro-form form .registro-form label {
+  display: block;
+  margin-bottom: 5px;
+}
 
-.produto-container {
+.registro-form input,
+.registro-form select,
+.registro-form button {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.registro-form button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.registro-form button:hover {
+  background-color: #0056b3;
+}
+
+.registro-form a {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.detalhes-produto-page .produto-container {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
@@ -117,22 +298,1134 @@ a {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
-
-.quantidade-controle {
+.detalhes-produto-page .produto-container h1,
+.detalhes-produto-page .produto-container p {
+  text-align: left;
+}
+.detalhes-produto-page .quantidade-controle {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 20px 0;
 }
-
-.quantidade-controle button {
+.detalhes-produto-page .quantidade-controle input {
+  width: 10%;
+  margin: 0;
+}
+.detalhes-produto-page .quantidade-controle button {
   background-color: #3498db;
   color: #fff;
   border: none;
-  padding: 10px;
+  padding: 3px 10px;
   font-size: 1.2em;
   cursor: pointer;
   margin: 0 5px;
+}
+.detalhes-produto-page .acoes-produto {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.detalhes-produto-page .acoes-produto form {
+  flex: 1;
+}
+.detalhes-produto-page .acoes-produto form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.detalhes-produto-page .acoes-produto form button:hover {
+  background-color: #217dbb;
+}
+
+.relatorio {
+  margin: 40px 20px;
+}
+
+.tabela-relatorio {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background-color: #fff;
+}
+
+.tabela-relatorio th, .tabela-relatorio td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.tabela-relatorio th {
+  background-color: #f2f2f2;
+  color: #333;
+  font-weight: bold;
+}
+
+.tabela-relatorio tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tabela-relatorio tr:hover {
+  background-color: #eaeaea;
+}
+
+@media (max-width: 768px) {
+  .tabela-relatorio {
+    border: 0;
+  }
+  .tabela-relatorio thead {
+    display: none;
+  }
+  .tabela-relatorio tr {
+    display: block;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  .tabela-relatorio td {
+    display: block;
+    text-align: right;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    padding-left: 50%;
+  }
+  .tabela-relatorio td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+  }
+}
+.listar-body .product-list {
+  display: grid;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 40px 10%;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adapta a largura dos itens e cria linhas automáticas */
+}
+.listar-body li {
+  display: flex; /* Habilita flexbox para o item */
+  flex-direction: column; /* Alinha os itens em coluna */
+  justify-content: space-between; /* Distribui espaço entre os elementos */
+  box-sizing: border-box;
+  border: 1px solid #ddd; /* Borda suave */
+  border-radius: 8px; /* Bordas arredondadas */
+  padding: 15px;
+  background-color: #f9f9f9; /* Cor de fundo leve */
+  transition: box-shadow 0.3s ease; /* Transição suave para sombra */
+  min-width: 200px; /* Largura mínima */
+  max-width: 300px; /* Largura máxima */
+  height: 100%; /* Garante que o item li preencha a altura disponível */
+  display: flex;
+  flex-direction: column;
+}
+.listar-body a {
+  display: flex; /* Torna o link um contêiner flexível */
+  flex-direction: column; /* Organiza os elementos internos em coluna */
+  justify-content: space-between; /* Distribui espaço entre os elementos */
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  height: 100%; /* Faz o link preencher verticalmente o item */
+  width: 100%; /* Garante que o link preencha horizontalmente o item */
+  gap: 20px;
+}
+.listar-body .product-name {
+  font-size: 1.2em; /* Aumenta o tamanho da fonte para o nome do produto */
+  font-weight: bold; /* Deixa o nome do produto em negrito */
+  text-align: left; /* Alinha o nome do produto à esquerda */
+}
+.listar-body .product-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Número de linhas visíveis antes de truncar */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adiciona reticências quando o texto é truncado */
+  margin-top: 5px; /* Espaçamento acima da descrição */
+  line-height: 1.2; /* Ajusta a altura da linha para melhor aparência */
+}
+.listar-body .preco-desc-estoque {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto; /* Empurra para o final do item */
+}
+.listar-body .preco {
+  font-size: 1.5em; /* Aumenta o tamanho da fonte para o preço */
+  color: #007bff; /* Cor azul para destacar o preço */
+  font-weight: bold; /* Deixa o preço em negrito */
+}
+.listar-body .desc-estoque {
+  color: #999999;
+  font-size: 0.9em; /* Ajusta o tamanho da fonte para a descrição do estoque */
+}
+.listar-body .button {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-top: 10px;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.listar-body .button:hover {
+  background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+}
+@media (max-width: 768px) {
+  .listar-body .product-list {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Ajusta o número de colunas em telas menores */
+  }
+}
+@media (max-width: 480px) {
+  .listar-body .product-list {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); /* 1 item por linha em telas muito pequenas */
+  }
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
+
+p {
+  margin-bottom: 40px;
+  font-size: 1.2em;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.main-content-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 1em;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+.button:hover {
+  background-color: #0056b3;
+}
+
+.carrinho-page h3 {
+  font-weight: 1000;
+  margin-bottom: 30px;
+}
+.carrinho-page .produtos-container-carrinho {
+  max-width: 800px;
+  margin: 10px auto;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+.carrinho-page .produto-carrinho {
+  border-radius: 10px;
+  border: 2px solid #b6b6b6;
+  padding: 14px 30px;
+  margin: 30px 0;
+}
+.carrinho-page ul {
+  list-style-type: none;
+}
+.carrinho-page p {
+  margin-bottom: 10px;
+  margin-top: 30px;
+}
+.carrinho-page .remover-carrinho {
+  color: red;
+  right: 25%;
+  transform: translateY(-50%);
+  position: absolute;
+  white-space: nowrap;
+}
+.carrinho-page .sub-container-carrinho {
+  text-align: right;
+}
+.carrinho-page .continuar-comprando {
+  transform: translate(-50%, -50%);
+  left: 50%;
+  position: absolute;
+  border: 1px;
+}
+.carrinho-page .quantidade-controle {
+  /* Resetando o estilo padrão do input */
+  /* Remove o estilo das bordas e fundo ao focar */
+  /* Estilo adicional para input de números */
+  /* Remove as setas de incremento/decremento em alguns navegadores */
+  /* Remove qualquer padding interno do input de número */
+}
+.carrinho-page .quantidade-controle input[type=text],
+.carrinho-page .quantidade-controle input[type=number],
+.carrinho-page .quantidade-controle input[type=email],
+.carrinho-page .quantidade-controle input[type=password],
+.carrinho-page .quantidade-controle input[type=tel] {
+  all: unset; /* Remove todos os estilos padrão do input */
+  font-size: 1.3rem; /* Define o tamanho da fonte */
+  font-family: inherit; /* Herda a fonte do elemento pai */
+  color: #000; /* Define a cor do texto para preto */
+  text-align: left; /* Alinha o texto à esquerda */
+  padding: 0; /* Remove o padding */
+  margin: 0; /* Remove a margem */
+  width: 2%; /* Define a largura do input */
+  background-color: transparent; /* Define o fundo como transparente */
+  box-sizing: border-box; /* Inclui o padding e a borda dentro da largura total */
+}
+.carrinho-page .quantidade-controle input[type=text]:focus,
+.carrinho-page .quantidade-controle input[type=number]:focus,
+.carrinho-page .quantidade-controle input[type=email]:focus,
+.carrinho-page .quantidade-controle input[type=password]:focus,
+.carrinho-page .quantidade-controle input[type=tel]:focus {
+  outline: none; /* Remove o contorno de foco */
+  border: none; /* Remove a borda */
+  background-color: transparent; /* Define o fundo como transparente */
+}
+.carrinho-page .quantidade-controle input[type=number] {
+  appearance: textfield; /* Remove os botões de incremento/decremento padrão */
+}
+.carrinho-page .quantidade-controle input[type=number]::-webkit-outer-spin-button,
+.carrinho-page .quantidade-controle input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.carrinho-page .quantidade-controle input[type=number]::-moz-appearance {
+  appearance: none; /* Remove os botões de incremento/decremento em navegadores Firefox */
+}
+.carrinho-page .quantidade-controle input[type=number] {
+  padding-right: 0; /* Remove qualquer padding à direita */
+}
+.carrinho-page button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 3px 10px;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+/* styles.scss */
+/* Estilos gerais para a página de edição de perfil */
+.editar-perfil {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: block;
+}
+.editar-perfil header {
+  background: #333;
+  color: #fff;
+  padding: 1rem 0;
+  text-align: center;
+}
+.editar-perfil header a {
+  color: #fff;
+  text-decoration: none;
+}
+.editar-perfil header a:hover {
+  text-decoration: underline;
+}
+.editar-perfil main {
+  max-width: 600px;
+  max-height: 350px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.editar-perfil main h1 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #333;
+}
+.editar-perfil main .edit-form {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 40px;
+}
+.editar-perfil main .edit-form label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+.editar-perfil main .edit-form input[type=text],
+.editar-perfil main .edit-form input[type=email] {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.editar-perfil main button {
+  margin: 10px 0;
+}
+.editar-perfil main a {
+  color: #007bff;
+  text-decoration: none;
+}
+.editar-perfil main a:hover {
+  text-decoration: underline;
+}
+
+/* styles.scss */
+/* Estilos gerais para a página de perfil */
+.perfil {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: block;
+}
+.perfil header {
+  background: #333;
+  color: #fff;
+  padding: 1rem 0;
+  text-align: center;
+}
+.perfil header a {
+  color: #fff;
+  text-decoration: none;
+}
+.perfil header a:hover {
+  text-decoration: underline;
+}
+.perfil main {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px 40px;
+}
+.perfil main h1 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #333;
+}
+.perfil main div h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  color: #333;
+}
+.perfil main div p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #666;
+}
+.perfil main div a {
+  color: #007bff;
+  text-decoration: none;
+}
+.perfil main div a:hover {
+  text-decoration: underline;
+}
+
+/* styles.scss */
+/* Estilos gerais para a página de histórico de pedidos */
+.historico-pedidos {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: block;
+}
+.historico-pedidos p {
+  margin-bottom: 20px;
+}
+.historico-pedidos header {
+  background: #333;
+  color: #fff;
+  padding: 1rem 0;
+  text-align: center;
+}
+.historico-pedidos header a {
+  color: #fff;
+  text-decoration: none;
+}
+.historico-pedidos header a:hover {
+  text-decoration: underline;
+}
+.historico-pedidos main {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.historico-pedidos main h1 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #333;
+}
+.historico-pedidos main h2 {
+  margin: 1rem 0;
+  font-size: 1.5rem;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+.historico-pedidos main ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 50px;
+  margin-top: -10px;
+}
+.historico-pedidos main ul li {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+}
+.historico-pedidos main p {
+  color: #666;
+  font-size: 1rem;
+}
+
+.gerenciar-produtos main {
+  padding: 20px;
+}
+.gerenciar-produtos main h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.gerenciar-produtos main table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+.gerenciar-produtos main table th, .gerenciar-produtos main table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+.gerenciar-produtos main table th {
+  background-color: #f4f4f4;
+}
+.gerenciar-produtos main table td {
+  background-color: #fff;
+}
+.gerenciar-produtos main table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.gerenciar-produtos main .adicionar-produto-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.gerenciar-produtos main .adicionar-produto-form input, .gerenciar-produtos main .adicionar-produto-form select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+.gerenciar-produtos main .adicionar-produto-form input:focus, .gerenciar-produtos main .adicionar-produto-form select:focus {
+  border-color: #aaa;
+  outline: none;
+}
+.gerenciar-produtos main .adicionar-produto-form button {
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.gerenciar-produtos main .adicionar-produto-form button:hover {
+  background-color: #0056b3;
+}
+.gerenciar-produtos main a {
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 10px;
+}
+.gerenciar-produtos main a:hover {
+  text-decoration: underline;
+}
+.gerenciar-produtos main form {
+  display: inline;
+}
+.gerenciar-produtos main form button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.gerenciar-produtos main form button:hover {
+  background-color: #c82333;
+}
+
+.gerenciar-vendedores main {
+  padding: 20px;
+}
+.gerenciar-vendedores main h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.gerenciar-vendedores main table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+.gerenciar-vendedores main table th, .gerenciar-vendedores main table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+.gerenciar-vendedores main table th {
+  background-color: #f4f4f4;
+}
+.gerenciar-vendedores main table td {
+  background-color: #fff;
+}
+.gerenciar-vendedores main table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.gerenciar-vendedores main .adicionar-vendedor-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.gerenciar-vendedores main .adicionar-vendedor-form input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+.gerenciar-vendedores main .adicionar-vendedor-form input:focus {
+  border-color: #aaa;
+  outline: none;
+}
+.gerenciar-vendedores main .adicionar-vendedor-form button {
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.gerenciar-vendedores main .adicionar-vendedor-form button:hover {
+  background-color: #0056b3;
+}
+.gerenciar-vendedores main a {
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 10px;
+}
+.gerenciar-vendedores main a:hover {
+  text-decoration: underline;
+}
+.gerenciar-vendedores main form {
+  display: inline;
+}
+.gerenciar-vendedores main form button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.gerenciar-vendedores main form button:hover {
+  background-color: #c82333;
+}
+
+.gerenciar-clientes main {
+  padding: 20px;
+}
+.gerenciar-clientes main h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.gerenciar-clientes main table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+.gerenciar-clientes main table th, .gerenciar-clientes main table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+.gerenciar-clientes main table th {
+  background-color: #f4f4f4;
+}
+.gerenciar-clientes main table td {
+  background-color: #fff;
+}
+.gerenciar-clientes main table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.gerenciar-clientes main .adicionar-cliente-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.gerenciar-clientes main .adicionar-cliente-form input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+.gerenciar-clientes main .adicionar-cliente-form input:focus {
+  border-color: #aaa;
+  outline: none;
+}
+.gerenciar-clientes main .adicionar-cliente-form button {
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.gerenciar-clientes main .adicionar-cliente-form button:hover {
+  background-color: #0056b3;
+}
+.gerenciar-clientes main a {
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 10px;
+}
+.gerenciar-clientes main a:hover {
+  text-decoration: underline;
+}
+.gerenciar-clientes main form {
+  display: inline;
+}
+.gerenciar-clientes main form button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.gerenciar-clientes main form button:hover {
+  background-color: #c82333;
+}
+
+.dashboard {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: block;
+}
+.dashboard main {
+  flex: 1; /* Faz com que o main expanda para ocupar o espaço disponível */
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.dashboard main h1 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+}
+.dashboard main nav {
+  margin-top: 2rem;
+}
+.dashboard main nav .dashboard-nav {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.dashboard main nav .dashboard-nav .nav-item {
+  display: block;
+  padding: 1rem;
+  font-size: 1.125rem;
+  color: #007bff;
+  text-decoration: none;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
+}
+.dashboard main nav .dashboard-nav .nav-item:hover {
+  background-color: #e2e6ea;
+  color: #0056b3;
+}
+
+.adicionar-produto main {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.adicionar-produto main h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.adicionar-produto main form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.adicionar-produto main form label {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+.adicionar-produto main form input[type=text],
+.adicionar-produto main form input[type=number],
+.adicionar-produto main form textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+.adicionar-produto main form input[type=text]:focus,
+.adicionar-produto main form input[type=number]:focus,
+.adicionar-produto main form textarea:focus {
+  border-color: #aaa;
+  outline: none;
+}
+.adicionar-produto main form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+.adicionar-produto main form button {
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.adicionar-produto main form button:hover {
+  background-color: #0056b3;
+}
+.adicionar-produto main #back-button {
+  display: block;
+  margin-bottom: 20px;
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.adicionar-produto main #back-button:hover {
+  background-color: #5a6268;
+}
+
+.editar-produto {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  display: block;
+}
+.editar-produto h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.editar-produto .edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+.editar-produto .edit-form label {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+.editar-produto .edit-form input[type=text],
+.editar-produto .edit-form input[type=number],
+.editar-produto .edit-form textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+.editar-produto .edit-form input[type=text]:focus,
+.editar-produto .edit-form input[type=number]:focus,
+.editar-produto .edit-form textarea:focus {
+  border-color: #aaa;
+  outline: none;
+}
+.editar-produto .edit-form textarea {
+  resize: vertical;
+  min-height: 100px;
+  padding: 7px;
+  margin-bottom: 14px;
+  resize: none;
+}
+.editar-produto .edit-form button {
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align-self: center;
+}
+.editar-produto .edit-form button:hover {
+  background-color: #218838;
+}
+.editar-produto #back-button {
+  display: inline-block;
+  margin-bottom: 20px;
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.editar-produto #back-button:hover {
+  background-color: #5a6268;
+}
+.editar-produto a {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #007bff;
+  text-decoration: none;
+}
+.editar-produto a:hover {
+  text-decoration: underline;
+}
+
+.pedidos-page {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.pedidos-page main {
+  width: 900px;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.pedidos-page main h1 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #333;
+}
+.pedidos-page main ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 50px;
+  margin-top: -10px;
+}
+.pedidos-page main ul .pedido-item {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+.pedidos-page main ul .pedido-item h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  color: #333;
+}
+.pedidos-page main ul .pedido-item p {
+  color: #666;
+  margin-bottom: 1rem;
+}
+.pedidos-page main ul .pedido-item .itens-pedido {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+.pedidos-page main ul .pedido-item .itens-pedido li {
+  background: #e9ecef;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+}
+.pedidos-page main ul .pedido-item form {
+  display: inline-block;
+  margin-right: 10px;
+}
+.pedidos-page main ul .pedido-item form button {
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.pedidos-page main ul .pedido-item form button:hover {
+  background-color: #0056b3;
+}
+
+.meus-produtos {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.meus-produtos main {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.meus-produtos main h1 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #333;
+}
+.meus-produtos main .btn-adicionar {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+}
+.meus-produtos main .btn-adicionar:hover {
+  background-color: #0056b3;
+}
+.meus-produtos main .produtos-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.meus-produtos main .produtos-list .produto-item {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+.meus-produtos main .produtos-list .produto-item h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  color: #333;
+}
+.meus-produtos main .produtos-list .produto-item p {
+  margin: 0.5rem 0;
+  color: #666;
+}
+.meus-produtos main .produtos-list .produto-item .btn-editar,
+.meus-produtos main .produtos-list .produto-item .btn-excluir {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.meus-produtos main .produtos-list .produto-item .btn-editar.btn-editar,
+.meus-produtos main .produtos-list .produto-item .btn-excluir.btn-editar {
+  background-color: #28a745;
+  color: #fff;
+}
+.meus-produtos main .produtos-list .produto-item .btn-editar.btn-editar:hover,
+.meus-produtos main .produtos-list .produto-item .btn-excluir.btn-editar:hover {
+  background-color: #218838;
+}
+.meus-produtos main .produtos-list .produto-item .btn-editar.btn-excluir,
+.meus-produtos main .produtos-list .produto-item .btn-excluir.btn-excluir {
+  background-color: #dc3545;
+  color: #fff;
+}
+.meus-produtos main .produtos-list .produto-item .btn-editar.btn-excluir:hover,
+.meus-produtos main .produtos-list .produto-item .btn-excluir.btn-excluir:hover {
+  background-color: #c82333;
 }
 
 /*# sourceMappingURL=styles.css.map */

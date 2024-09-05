@@ -11,9 +11,9 @@
   <main>
     <h1>Login do Administrador</h1>
     <% if (erro) { %>
-      <p style="color:red;"><%= erro %></p>
+      <p class="error-message"><%= erro %></p>
     <% } %>
-    <form action="/admin/login" method="POST">
+    <form action="/admin/login" method="POST" class="form-container">
       <div>
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>

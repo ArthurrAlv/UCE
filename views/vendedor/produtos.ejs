@@ -1,19 +1,31 @@
-<%- include('../layouts/header')%>
-<main>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meus Produtos</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body class="meus-produtos"> <!-- Adicionando a classe meus-produtos -->
+  <%- include('../layouts/header') %>
+  <button id="back-button" data-back-url="/vendedor/produtos">Voltar</button>
+  <main>
     <h1>Meus Produtos</h1>
-    <a href="/vendedor/adicionarProduto">Adicionar Novo Produto</a>
-    <ul>
-        <% produtos.forEach(produto => { %>
-            <li>
-                <h3><%= produto.nome %></h3>
-                <p><%= produto.descricao %></p>
-                <p>Preço: R$<%= produto.preco %></p>
-                <p>Estoque: <%= produto.estoque %></p>
-                <a href="/vendedor/editarProduto/<%= produto.id %>">Editar</a>
-                <a href="#" class="delete-button" data-product-id="<%= produto.id %>">Excluir</a>
-            </li>
-        <% }) %>
+    <a href="/vendedor/adicionarProduto" class="btn-adicionar">Adicionar Novo Produto</a>
+    <ul class="produtos-list">
+      <% produtos.forEach(produto => { %>
+        <li class="produto-item">
+          <h3><%= produto.nome %></h3>
+          <p><%= produto.descricao %></p>
+          <p>Preço: R$<%= produto.preco %></p>
+          <p>Estoque: <%= produto.estoque %></p>
+          <a href="/vendedor/editarProduto/<%= produto.id %>" class="btn-editar">Editar</a>
+          <a href="#" class="btn-excluir delete-button" data-product-id="<%= produto.id %>">Excluir</a>
+        </li>
+      <% }) %>
     </ul>
-</main>
-<%- include('../layouts/footer') %>
-<script type="module" src="/assets/js/main.js"></script>
+  </main>
+  <%- include('../layouts/footer') %>
+  <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,12 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil do Vendedor</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
 <% include('../layouts/header') %>
-<button id="back-button" data-back-url="/vendedor/produtos">Voltar</button>
-<main>
-    <h1>Perfil do Vendedor</h1>
-    <div>
-        <h2><%= vendedor.nome %></h2>
-        <p>Email: <%= vendedor.email %></p>
-        <a href="/vendedor/editarPerfil">Editar Perfil</a>
-    </div>
-</main>
-<% include('../layouts/footer') %>
-<script type="module" src="/assets/js/main.js"></script>
+<body class="perfil"> <!-- Adicionando a classe perfil -->
+  <button id="back-button" data-back-url="/vendedor/produtos">Voltar</button>
+  <main>
+      <h1>Perfil do Vendedor</h1>
+      <div>
+          <h2><%= vendedor.nome %></h2>
+          <p>Email: <%= vendedor.email %></p>
+          <a href="/vendedor/editarPerfil">Editar Perfil</a>
+      </div>
+  </main>
+  <% include('../layouts/footer') %>
+  <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>

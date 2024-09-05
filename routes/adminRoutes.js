@@ -35,4 +35,7 @@ router.get('/produtos/editar/:id', adminController.editarProduto); // Mudança p
 router.post('/produtos/editar/:id', adminController.atualizarProduto); // Mudança para POST
 router.post('/produtos/excluir/:id', adminController.excluirProduto);
 
+// Rota para a página de relatórios
+router.get('/relatorios', adminController.relatorioPedidos);
+
 module.exports = router;

@@ -6,7 +6,7 @@
   <title>Adicionar Produto</title>
   <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
-<body>
+<body class="adicionar-produto">
   <%- include('../layouts/header', { session: session }) %> <!-- Passando session para o header -->
   <button id="back-button">Voltar</button>
   <main>
@@ -18,7 +18,7 @@
       <textarea id="descricao" name="descricao" required></textarea>
       <label for="preco">Preço:</label>
       <input type="number" id="preco" name="preco" step="0.01" required>
-      <label for="preco">Estoque:</label>
+      <label for="estoque">Estoque:</label>
       <input type="number" id="estoque" name="estoque" required>
       <button type="submit">Adicionar Produto</button>
     </form>

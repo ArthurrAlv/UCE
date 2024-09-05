@@ -7,7 +7,7 @@
   <title>Gerenciar Vendedores</title>
   <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
-<body>
+<body class="gerenciar-vendedores">
   <%- include('../layouts/header') %>
 
   <main>
@@ -37,7 +37,8 @@
         <% }) %>
       </tbody>
     </table>
-    <form action="/admin/vendedores/adicionar" method="POST">
+
+    <form action="/admin/vendedores/adicionar" method="POST" class="adicionar-vendedor-form">
       <input type="text" name="nome" placeholder="Nome" required>
       <input type="email" name="email" placeholder="Email" required>
       <input type="password" name="senha" placeholder="Senha" required>

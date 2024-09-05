@@ -7,20 +7,19 @@
   <title>Painel de Controle do Admin</title>
   <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
-<body>
+<body class="dashboard">
   <%- include('../layouts/header') %>
-
   <main>
     <h1>Painel de Controle</h1>
     <nav>
-      <ul>
-        <li><a href="/admin/clientes">Gerenciar Clientes</a></li>
-        <li><a href="/admin/vendedores">Gerenciar Vendedores</a></li>
-        <li><a href="/admin/produtos">Gerenciar Produtos</a></li>
+      <ul class="dashboard-nav">
+        <li><a href="/admin/clientes" class="nav-item">Gerenciar Clientes</a></li>
+        <li><a href="/admin/vendedores" class="nav-item">Gerenciar Vendedores</a></li>
+        <li><a href="/admin/produtos" class="nav-item">Gerenciar Produtos</a></li>
+        <li><a href="/admin/relatorios" class="nav-item">Relatórios</a></li>
       </ul>
     </nav>
   </main>
-
   <%- include('../layouts/footer') %>
   <script type="module" src="/js/main.js"></script>
 </body>

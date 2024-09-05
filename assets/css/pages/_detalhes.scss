@@ -1,6 +1,7 @@
-// assets/css/pages/_detalhes.scss
-
-.produto-container {
+// Estilos específicos para a página de detalhes do produto
+.detalhes-produto-page {
+  // Container principal do produto
+  .produto-container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -8,21 +9,58 @@
     border-radius: $border-radius;
     @include box-shadow(0, 2px, 4px, rgba(0, 0, 0, 0.1));
     text-align: center;
-}
 
-.quantidade-controle {
+    h1,
+    p {
+      text-align: left; // Alinha o texto dos títulos e parágrafos à esquerda
+    }
+  }
+
+  // Controles de quantidade
+  .quantidade-controle {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 20px 0;
-}
 
-.quantidade-controle button {
-    background-color: $primary-color;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    font-size: 1.2em;
-    cursor: pointer;
-    margin: 0 5px;
+    input {
+      width: 10%;
+      margin: 0;
+    }
+
+    button {
+      background-color: $primary-color;
+      color: #fff;
+      border: none;
+      padding: 3px 10px;
+      font-size: 1.2em;
+      cursor: pointer;
+      margin: 0 5px;
+    }
+  }
+
+  // Estilo dos formulários de ação do produto
+  .acoes-produto {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    form {
+      flex: 1;
+
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: $primary-color;
+        color: #fff;
+        border: none;
+        border-radius: $border-radius;
+        cursor: pointer;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+      }
+    }
+  }
 }
