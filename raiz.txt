@@ -1,79 +1,382 @@
-raiz-do-projeto/
+UCE/
 │
 ├── assets/
 │   ├── css/
 │   │   ├── styles.css
+│   │   ├── styles.css.map
+│   │   ├── styles.scss
+│   │   ├── _globals.scss
 │   │   ├── _variables.scss
 │   │   ├── _mixins.scss
-│   │   └── components/
-│   │       ├── header.css
-│   │       └── footer.css
+│   │   ├── components/
+│   │   │   ├── footer.scss
+│   │   │   └── header.scss
+│   │   └── pages/
+│   │       ├── _admin.scss
+│   │       ├── _avisoAutenticacao.scss
+│   │       ├── _detalhes.scss
+│   │       ├── _listar.scss
+│   │       ├── _login.scss
+│   │       ├── _outros.scss
+│   │       ├── _registro.scss
+│   │       ├── _relatorios.scss
+│   │       └── _vendedor.scss
+│   ├── fonts/
+│   │   └── custom-font.ttf
 │   ├── js/
-│   │   ├── main.js
-│   │   ├── helpers.js
 │   │   ├── api.js
+│   │   ├── helpers.js
+│   │   ├── main.js
 │   │   ├── navigation.js
 │   │   ├── product.js
-│   │   ├── admin.js
-│   │   ├── users.js
-│   │   └── components/
-│   │       ├── modal.js
-│   │       └── dropdown.js
-│   ├── images/
-│   │   ├── logo.png
-│   │   └── produto1.jpg
-│   └── fonts/
-│       └── custom-font.ttf
-│
-├── controllers/
-│   ├── authController.js
-│   ├── vendedorController.js
-│   ├── produtoController.js
-│   └── clienteController.js
-│
-├── models/
-│   ├── cliente.js
-│   ├── vendedor.js
-│   ├── admin.js
-│   └── produto.js
-│
-├── routes/
-│   ├── authRoutes.js
-│   ├── vendedorRoutes.js
-│   ├── produtoRoutes.js
-│   └── clienteRoutes.js
-│
-├── views/
-│   ├── admin/
-│   ├── auth/
-│   │   ├── login.ejs
-│   │   └── registro.ejs
-│   ├── produtos/
-│   │   └── listar.ejs
-│   ├── cliente/
-│   │   ├── perfil.ejs
-│   │   ├── editarPerfil.ejs
-│   │   ├── carrinho.ejs
-│   │   └── historico.ejs
-│   ├── vendedor/
-│   │   ├── perfil.ejs
-│   │   ├── editarPerfil.ejs
-│   │   ├── editarProduto.ejs
-│   │   ├── adicionarProduto.ejs
-│   │   └── produtos.ejs
-│   └── layouts/
-│       ├── header.ejs
-│       └── footer.ejs
-│
-├── middleware/           
-│   └── auth.js           
+│   │   └── scripts.js
+│   ├── js/components/
+│   │   ├── dropdown.js
+│   │   └── modal.js
+│   └── svg/
+│       └── LOGO.svg
 │
 ├── config/
-│   └── db.js
+│   ├── db.js
+│   └── email.js
 │
-├── app.js
-├── package.json
-└── .env
+├── controllers/
+│   ├── adminController.js
+│   ├── authController.js
+│   ├── carrinhoController.js
+│   ├── clienteController.js
+│   ├── pedidoController.js
+│   ├── produtoController.js
+│   └── vendedorController.js
+│
+├── middleware/
+│   ├── auth.js
+│   └── authAdmin.js
+│
+├── models/
+│   ├── admin.js
+│   ├── associations.js
+│   ├── carrinho.js
+│   ├── cliente.js
+│   ├── index.js
+│   ├── itemPedido.js
+│   ├── pedido.js
+│   ├── produto.js
+│   └── vendedor.js
+│
+├── routes/
+│   ├── adminRoutes.js
+│   ├── authRoutes.js
+│   ├── carrinhoRoutes.js
+│   ├── clienteRoutes.js
+│   ├── pedidoRoutes.js
+│   ├── produtoRoutes.js
+│   └── vendedorRoutes.js
+│
+├── seeds/
+│   └── adminSeed.js
+│
+└── views/
+    ├── admin/
+    │   ├── clientes.ejs
+    │   ├── dashboard.ejs
+    │   ├── editarCliente.ejs
+    │   ├── editarProduto.ejs
+    │   ├── editarVendedor.ejs
+    │   ├── login.ejs
+    │   ├── produtos.ejs
+    │   ├── relatorios.ejs
+    │   └── vendedores.ejs
+    ├── auth/
+    │   ├── avisoAutenticacao.ejs
+    │   ├── login.ejs
+    │   ├── recuperarSenha.ejs
+    │   ├── redefinirSenha.ejs
+    │   └── registro.ejs
+    ├── cliente/
+    │   ├── carrinho.ejs
+    │   ├── editarPerfil.ejs
+    │   ├── finalizarCompra.ejs
+    │   ├── historico.ejs
+    │   └── perfil.ejs
+    ├── layouts/
+    │   ├── footer.ejs
+    │   └── header.ejs
+    ├── produtos/
+    │   ├── detalhes.ejs
+    │   └── listar.ejs
+    └── vendedor/
+        ├── adicionarProduto.ejs
+        ├── editarPerfil.ejs
+        ├── editarProduto.ejs
+        ├── pedidos.ejs
+        ├── perfil.ejs
+        └── produtos.ejs
 
 
-Módulos ES6
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        07/08/2024     03:41                assets
+d-----        22/08/2024     13:23                config
+d-----        15/08/2024     13:21                controllers
+d-----        15/08/2024     13:21                middleware
+d-----        15/08/2024     13:21                models
+d-----        15/08/2024     13:21                routes
+d-----        15/08/2024     13:21                seeds
+d-----        15/08/2024     13:21                views
+-a----        27/08/2024     14:52            158 .env
+-a----        24/09/2024     11:18           3062 app.js
+-a----        13/08/2024     16:10           2018 dados.sql
+-a----        23/08/2024     16:27           7703 ecommerce.sql
+-a----        28/08/2024     14:31         134993 package-lock.json
+-a----        28/08/2024     14:31           2478 package.json
+-a----        07/08/2024     03:51           2159 raiz.txt
+-a----        15/08/2024     13:21            596 README.md
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\assets
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        28/08/2024     14:29                css
+d-----        07/08/2024     03:41                fonts
+d-----        15/08/2024     13:21                js
+d-----        07/08/2024     03:41                svg
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\assets\css
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        20/08/2024     19:25                components
+d-----        29/08/2024     20:29                pages
+-a----        30/08/2024     18:11          31987 styles.css
+-a----        30/08/2024     18:11           6497 styles.css.map
+-a----        29/08/2024     20:29            510 styles.scss
+-a----        30/08/2024     18:11           1866 _globals.scss
+-a----        15/08/2024     13:21            543 _mixins.scss
+-a----        30/08/2024     13:52            322 _variables.scss
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\assets\css\components
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        28/08/2024     16:22            263 footer.scss
+-a----        30/08/2024     13:53           1377 header.scss
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\assets\css\pages
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        30/08/2024     18:11           7172 _admin.scss
+-a----        28/08/2024     16:56           1246 _avisoAutenticacao.scss
+-a----        30/08/2024     15:40           1406 _detalhes.scss
+-a----        30/08/2024     17:25           3254 _listar.scss
+-a----        28/08/2024     19:49           2223 _login.scss
+-a----        30/08/2024     17:36           7693 _outros.scss
+-a----        28/08/2024     19:39           1300 _registro.scss
+-a----        27/08/2024     17:12           1293 _relatorios.scss
+-a----        30/08/2024     17:53           7381 _vendedor.scss
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\assets\fonts
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        07/08/2024     03:41              0 custom-font.ttf
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\assets\js
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        07/08/2024     03:41                components
+-a----        07/08/2024     03:41              0 api.js
+-a----        14/08/2024     13:35            476 helpers.js
+-a----        15/08/2024     13:21           2644 main.js
+-a----        07/08/2024     03:41            222 navigation.js
+-a----        14/08/2024     19:40           4984 product.js
+-a----        07/08/2024     03:41              0 scripts.js
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\assets\js\components
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        07/08/2024     03:41              0 dropdown.js
+-a----        07/08/2024     03:41              0 modal.js
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\assets\svg
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        07/08/2024     03:41           7489 LOGO.svg
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\config
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        27/08/2024     14:52            521 db.js
+-a----        22/08/2024     20:03            259 email.js
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\controllers
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        27/08/2024     16:46           8888 adminController.js
+-a----        30/08/2024     17:05           8626 authController.js
+-a----        14/08/2024     20:31           9606 carrinhoController.js
+-a----        14/08/2024     13:35           1055 clienteController.js
+-a----        15/08/2024     13:21           3406 pedidoController.js
+-a----        12/08/2024     13:22           4217 produtoController.js
+-a----        15/08/2024     13:21           7555 vendedorController.js
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\middleware
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        13/08/2024     14:01           1973 auth.js
+-a----        15/08/2024     13:21            308 authAdmin.js
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\models
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        12/08/2024     13:22            511 admin.js
+-a----        27/08/2024     16:49           1351 associations.js
+-a----        12/08/2024     13:22            909 carrinho.js
+-a----        22/08/2024     15:47            764 cliente.js
+-a----        15/08/2024     13:21              0 index.js
+-a----        27/08/2024     16:44            922 itemPedido.js
+-a----        14/08/2024     16:55           1078 pedido.js
+-a----        13/08/2024     14:01            900 produto.js
+-a----        22/08/2024     15:47            767 vendedor.js
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\routes
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        23/08/2024     16:39           1960 adminRoutes.js
+-a----        22/08/2024     21:01           1464 authRoutes.js
+-a----        14/08/2024     14:44           1016 carrinhoRoutes.js
+-a----        14/08/2024     13:35            667 clienteRoutes.js
+-a----        14/08/2024     16:29            607 pedidoRoutes.js
+-a----        12/08/2024     13:22           1651 produtoRoutes.js
+-a----        14/08/2024     16:16           1884 vendedorRoutes.js
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\seeds
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        27/08/2024     14:45           1433 adminSeed.js
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\views
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        23/08/2024     16:32                admin
+d-----        22/08/2024     13:29                auth
+d-----        15/08/2024     13:21                cliente
+d-----        15/08/2024     13:21                layouts
+d-----        15/08/2024     13:21                produtos
+d-----        15/08/2024     13:21                vendedor
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\views\admin
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        29/08/2024     20:27           1597 clientes.ejs
+-a----        30/08/2024     18:11            928 dashboard.ejs
+-a----        15/08/2024     13:21           1026 editarCliente.ejs
+-a----        15/08/2024     13:21           1515 editarProduto.ejs
+-a----        15/08/2024     13:21           1035 editarVendedor.ejs
+-a----        28/08/2024     15:24            904 login.ejs
+-a----        29/08/2024     21:01           2829 produtos.ejs
+-a----        27/08/2024     17:15           1926 relatorios.ejs
+-a----        29/08/2024     20:27           1658 vendedores.ejs
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\views\auth
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        28/08/2024     16:50            763 avisoAutenticacao.ejs
+-a----        28/08/2024     17:27           1469 login.ejs
+-a----        30/08/2024     17:21            975 recuperarSenha.ejs
+-a----        22/08/2024     13:36            605 redefinirSenha.ejs
+-a----        28/08/2024     19:40           1554 registro.ejs
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\views\cliente
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        29/08/2024     17:29           2713 carrinho.ejs
+-a----        29/08/2024     17:25           1024 editarPerfil.ejs
+-a----        15/08/2024     14:05           1129 finalizarCompra.ejs
+-a----        29/08/2024     17:45           1210 historico.ejs
+-a----        29/08/2024     17:38            766 perfil.ejs
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\views\layouts
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        05/09/2024     19:42             49 footer.ejs
+-a----        30/08/2024     17:37           1093 header.ejs
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\views\produtos
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        30/08/2024     15:40           2071 detalhes.ejs
+-a----        30/08/2024     15:29           2351 listar.ejs
+
+
+    Diretório: C:\Users\Administrator\Documents\ecommerce\UCE\views\vendedor
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        29/08/2024     20:31           1178 adicionarProduto.ejs
+-a----        29/08/2024     17:25           1083 editarPerfil.ejs
+-a----        29/08/2024     20:34           1425 editarProduto.ejs
+-a----        30/08/2024     17:46           1661 pedidos.ejs
+-a----        29/08/2024     17:38            773 perfil.ejs
+-a----        29/08/2024     20:44           1223 produtos.ejs
